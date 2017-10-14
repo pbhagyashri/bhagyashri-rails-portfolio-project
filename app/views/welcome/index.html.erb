@@ -1,9 +1,12 @@
 <h1>Hello</h1>
-<h2>Welcome <%= current_user.username %></h2>
+
 
 <% if !logged_in? %>
+  <% if current_user %>
+    <h2>Welcome <%= current_user.username %></h2>
+  <% end %>
   <%= link_to 'Login', login_path %>
   <%= link_to 'Signup', signup_path %>
 <% else %>
-  <%= link_to 'Logout', logout_path %>
+  <%= link_to 'Logout', logout_path  %>
 <% end %>

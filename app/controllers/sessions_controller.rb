@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session.delete :name
+    session.clear
+    redirect_to root_path
   end
 end
