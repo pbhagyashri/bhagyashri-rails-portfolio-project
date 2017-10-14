@@ -5,10 +5,11 @@ Rails.application.routes.draw do
   resources :restaurants
   resources :reviews
 
-  get 'signup' => 'users#new', as: :register
-  post 'users/create' => 'users#create', as: :users
+  get 'signup' => 'users#new', as: :signup
+  post 'users' => 'users#create', as: :users
 
-  get 'signin' => 'sessions#new', as: :login
-  post 'sessions/create' => 'sessions#create', as: :sessions
+  get 'login' => 'sessions#new', as: :login
+  post 'sessions' => 'sessions#create', as: :sessions
+  get 'logout' => 'sessions#destroy'
 
 end
