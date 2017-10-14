@@ -20,9 +20,19 @@ ________________________________________________________________________________
 
 Task List :
 
-Genrate Models, Migrations, Controllers, and Views for, Restaurant, Review and User.
+Genrate Models, Migrations, for, Restaurant, Review and User. -- Done
 
-User can create, edit and delete his or her own Reviews and Restaurants. User can not edit or delete other users Reviews or Restaurants.
+Genrate Controllers, and Views for, Restaurant, Review and User.
+
+Generate Routes for, Restaurant, Review and User.
+
+Genrate forms for, Restaurant, Review and User.
+
+User Partials
+
+User can create, edit and delete his or her own Reviews and Restaurants. User can not edit or delete other users Reviews or Restaurants.  -- Done
+
+
 
 Restaurant has nested_attributes for reviews. called restaurant_attributes.
 

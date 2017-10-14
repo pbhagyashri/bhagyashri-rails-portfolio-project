@@ -1,0 +1,27 @@
+
+<h1>Signup</h1>
+
+<%= form_for(@user) do |f| %>
+
+  <% if @user.errors.any? %>
+    <div>
+      <h2>Please correct following!</h2>
+
+        <% @user.errors.full_messages.each do |message| %>
+          <p><%= message %></p>
+        <% end %>
+
+    </div>
+  <% end %>
+
+  <%= f.label :username %>
+  <%= f.text_field :username, placeholder: "Please choose a username!" %><br><br>
+
+  <%= f.label :email %>
+  <%= f.text_field :email, placeholder: "Register with your email!!" %><br><br>
+
+  <%= f.label :password %>
+  <%= f.password_field :password%><br><br>
+
+  <%= f.submit %>
+<% end %>
