@@ -4,6 +4,6 @@
   <%= link_to 'Login', login_path %>
   <%= link_to 'Signup', signup_path %>
 <% else %>
-  <h2>Welcome <%= current_user.username %></h2>
+  <p>You are logged in as <%=current_user.username %></p>
   <%= link_to 'Logout', logout_path  %>
 <% end %>
