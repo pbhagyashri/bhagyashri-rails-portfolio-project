@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
   #resources :users, only: [:new, :create]
   resources :restaurants
+  delete 'restaurant/:id', to: 'restaurant#destroy'
   resources :reviews
 
   get 'signup' => 'users#new', as: :signup
