@@ -1,17 +1,9 @@
 
 <h1>Signup</h1>
 
+<%= render partial: '/restaurants/render_errors', locals: {model_name: @user} %>
+
 <%= form_for(@user) do |f| %>
-
-  <% if @user.errors.any? %>
-    <div>
-      <h2>Please correct following!</h2>
-
-        <% @user.errors.full_messages.each do |message| %>
-          <p><%= message %></p>
-        <% end %>
-    </div>
-  <% end %>
 
   <%= f.label :username %>
   <%= f.text_field :username, placeholder: "Please choose a username!" %><br><br>
