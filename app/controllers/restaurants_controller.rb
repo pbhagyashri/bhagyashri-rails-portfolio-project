@@ -1,6 +1,7 @@
 class RestaurantsController < ApplicationController
 
   before_action :set_restaurant, only: [:edit, :show, :destroy, :update]
+  before_action :authentication_required
 
   include RestaurantHelper
 
@@ -15,25 +16,25 @@ class RestaurantsController < ApplicationController
   end
 
   def create
+      @restaurant = Restaurant.new(restaurant_params)
+      @restaurant.save
 
-    @restaurant = Restaurant.new(restaurant_params)
-    @restaurant.save
-
-    redirect_to restaurants_path
+      redirect_to restaurants_path
   end
 
   def show
+
     @review = Review.new
+    redirect_to login_path
+
   end
 
   def edit
-
     if has_reviews(@restaurant)
       @review = Review.find_by(restaurant_id: @restaurant.id)
     else
       @review = @restaurant.reviews.build
     end
-
   end
 
 
