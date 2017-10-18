@@ -1,3 +1,4 @@
 
-<%= render partial: "restaurant", locals: {restaurant: @restaurant} %>
-<%= link_to "Back", restaurants_path %>
+<% @restaurant.reviews.each do |rw| %>
+  <%= rw.taste_rating %>
+<% end %>
