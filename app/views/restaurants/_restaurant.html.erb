@@ -1,19 +1,23 @@
 <div style="background-color: #E0E6E6; padding: 20px; width: 500px">
+
   <h2><span style="color: #517A2A">Name:</span> <%= link_to restaurant.name, restaurant_path(restaurant) %></h2>
   <h3><span style="color: #517A2A">Cuisine:</span> <%= restaurant.cuisine %><h3>
   <h3><span style="color: #517A2A">Location:</span> <%= restaurant.location %></h3>
+
   <% if has_reviews(restaurant) %>
     <h3>Review:</h3>
   <% end %>
+
   <% restaurant.reviews.each do |review| %>
     <h4> Taste Rating: <%= review.taste_rating %></h4>
     <h4> Health Rating: <%= review.health_rating %></h4>
     <h4> Cleanliness Rating: <%= review.cleanliness_rating %></h4>
     <h4> Description: <%= review.description %></h4>
     <h4> Date: <%= review.date %></h4>
-
   <% end %>
+
   <span><%= link_to "View", restaurant_path(restaurant) %></span>
   <span><%= link_to "Edit", edit_restaurant_path(restaurant) %></span>
   <span><%= link_to "Delete", restaurant, method: :delete, data: { confirm: "Are you sure?" } %></span>
+
 </div>

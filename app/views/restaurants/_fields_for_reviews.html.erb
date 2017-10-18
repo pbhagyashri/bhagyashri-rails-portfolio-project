@@ -1,0 +1,24 @@
+  <h3>Write a Review</h3>
+  <p>
+    <%= r.label :taste_rating %>
+    <%= r.text_field :taste_rating %>
+  </p>
+
+  <p>
+    <%= r.label :health_rating %>
+    <%= r.text_field :health_rating %>
+  </p>
+
+  <p>
+    <%= r.label :cleanliness_rating %>
+    <%= r.text_field :cleanliness_rating %>
+  </p>
+
+  <p>
+    <%= r.label :description %>
+    <%= r.text_area :description, size: "20x3" %>
+  </p>
+
+
+  <%= r.hidden_field :user_id, :value => current_user.id %>
+  <%= r.hidden_field :restaurant_id, :value => @restaurant.id %>
