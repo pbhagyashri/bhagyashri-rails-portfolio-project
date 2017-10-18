@@ -1,4 +1,37 @@
+<%= render partial: "restaurant", locals: {restaurant: @restaurant} %>
 
-<% @restaurant.reviews.each do |rw| %>
-  <%= rw.taste_rating %>
+<% if @restaurant.reviews.empty? %>
+  <h2>Write a Review</h2>
+  <%= form_for(@review) do |f| %>
+    <p>
+      <%= f.label :taste_rating %>
+      <%= f.text_field :taste_rating %>
+    </p>
+
+    <p>
+      <%= f.label :health_rating %>
+      <%= f.text_field :health_rating %>
+    </p>
+
+    <p>
+      <%= f.label :cleanliness_rating %>
+      <%= f.text_field :cleanliness_rating %>
+    </p>
+
+    <p>
+      <%= f.label :description %>
+      <%= text_area :description, size: "20x30" %>
+    </p>
+
+    <p>
+      <%= f.label :date %>
+      <%= f.text_field :date %>
+    </p>
+
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.hidden_field :restaurant_id, :value => @restaurant.id %>
+
+    <%= f.submit value="Submit Review" %>
+  <% end %>
+
 <% end %>

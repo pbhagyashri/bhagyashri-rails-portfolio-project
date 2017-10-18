@@ -2,6 +2,9 @@ class RestaurantsController < ApplicationController
 
   before_action :set_restaurant, only: [:edit, :show, :destroy, :update]
 
+  include RestaurantHelper
+
+
   def index
     @restaurants = Restaurant.all
   end
@@ -20,12 +23,12 @@ class RestaurantsController < ApplicationController
   end
 
   def show
-
+    @review = Review.new
   end
 
   def edit
 
-    if !@restaurant.reviews.empty?
+    if has_reviews(@restaurant)
       @review = Review.find_by(restaurant_id: @restaurant.id)
     else
       @review = @restaurant.reviews.build
@@ -35,9 +38,9 @@ class RestaurantsController < ApplicationController
 
 
   def update
-
     @restaurant.reviews.destroy_all
     @restaurant.update(restaurant_params)
+
     redirect_to restaurant_path(@restaurant)
   end
 
