@@ -16,9 +16,35 @@
     <%= f.text_field :cuisine %>
   </p>
 
+  <h3>Write a Review</h3>
   <p>
     <%= f.fields_for :reviews, @review do |review_builder| %>
-      <%= render :partial=> 'fields_for_reviews', locals: {:r => review_builder} %>
+      <p>
+        <%= review_builder.label :taste_rating %>
+        <%= review_builder.text_field :taste_rating %>
+      </p>
+
+      <p>
+        <%= review_builder.label :health_rating %>
+        <%= review_builder.text_field :health_rating %>
+      </p>
+
+      <p>
+        <%= review_builder.label :cleanliness_rating %>
+        <%= review_builder.text_field :cleanliness_rating %>
+      </p>
+
+      <p>
+        <%= review_builder.label :description %>
+        <%= text_area :description, size: "20x30" %>
+      </p>
+
+      <p>
+        <%= review_builder.date_field :date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y") %>
+      </p>
+      <%= review_builder.hidden_field :user_id, :value => current_user.id %>
+      <%= review_builder.hidden_field :restaurant_id, :value => @restaurant.id %>
+
     <% end %>
   </p>
   <%= f.submit %>
