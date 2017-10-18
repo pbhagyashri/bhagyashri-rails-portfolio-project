@@ -3,4 +3,3 @@ module RestaurantHelper
     !restaurant.reviews.empty? ? true : false
   end
 end
-  
