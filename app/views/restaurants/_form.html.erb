@@ -1,28 +1,32 @@
 <h1>Add A Restaurant</h1>
 
 <%= form_for(@restaurant) do |f| %>
-  <p>
+  <h3>
     <%= f.label :Name %>
     <%= f.text_field :name %>
-  </p>
+  </h3>
 
-  <p>
+  <h3>
     <%= f.label :Location %>
     <%= f.text_field :location %>
-  </p>
+  </h3>
 
-  <p>
+  <h3>
     <%= f.label :Cuisine %>
     <%= f.text_field :cuisine %>
-  </p>
+  </h3>
 
-  <%= f.select(:status, options_for_select([['Yes', true], ['No', false]], {:selected => @restaurant.status}),:prompt => "Select") %>
+  <h3>
+    <%= f.label "Set Status" %>
+    <%= f.select(:status, options_for_select([['Public', true], ['Private', false]], {:selected => @restaurant.status}),:prompt => "Select") %>
+  </h3>
 
-  <p>
+  <h3>
     <%= f.fields_for :reviews, @review do |review_builder| %>
       <%= render partial: "fields_for_reviews", locals: {r: review_builder} %>
     <% end %>
-  </p>
-  <%= f.submit %>
-</p>
+  </h3>
+
+  <h3><%= f.submit %></h3>
+
 <% end %>
