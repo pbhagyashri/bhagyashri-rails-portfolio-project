@@ -16,9 +16,10 @@
     <%= f.text_field :cuisine %>
   </p>
 
+  <%= f.select(:status, options_for_select([['Yes', true], ['No', false]], {:selected => @restaurant.status}),:prompt => "Select") %>
+
   <p>
     <%= f.fields_for :reviews, @review do |review_builder| %>
-
       <%= render partial: "fields_for_reviews", locals: {r: review_builder} %>
     <% end %>
   </p>

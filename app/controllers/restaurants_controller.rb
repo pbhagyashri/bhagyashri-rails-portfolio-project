@@ -38,8 +38,11 @@ class RestaurantsController < ApplicationController
 
 
   def update
+
     @restaurant.reviews.destroy_all
     @restaurant.update(restaurant_params)
+    @restaurant.status = true if params[:restaurant][:status] = "true"
+    @restaurant.save
 
     redirect_to restaurant_path(@restaurant)
   end
@@ -52,7 +55,7 @@ class RestaurantsController < ApplicationController
   private
 
   def restaurant_params
-    params.require(:restaurant).permit(:name, :location, :cuisine, :reviews_attributes => [:taste_rating, :health_rating, :cleanliness_rating, :description, :date, :user_id, :restaurant_id])
+    params.require(:restaurant).permit(:name, :location, :cuisine, :reviews_attributes => [:taste_rating, :health_rating, :cleanliness_rating, :description, :date, :status, :user_id, :restaurant_id])
   end
 
   def set_restaurant

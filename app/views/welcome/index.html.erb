@@ -11,3 +11,9 @@
   <%= link_to 'Signup', signup_path %>
 
 <% end %>
+
+<br><br>
+
+<% status_true.each do |restaurant| %>
+  <%= render partial: "/restaurants/restaurant", locals: {restaurant: restaurant} %>
+<% end %>
