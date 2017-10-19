@@ -32,6 +32,14 @@ User Partials
 
 User can create, edit and delete his or her own Reviews and Restaurants. User can not edit or delete other users Reviews or Restaurants.  -- Done
 
+Setup Omniauth with Facebook
+
+User should be able to post restaurants and reviews to root page of the app. where other users can see them.
+
+create nested resources for reviews - user should be able to see all the reviews associated with a restaurant from root page. restaurant/1/reviews
+
+Create 2 class methods on Restaurant class, that will query all restaurant with 5 ranking for taste and healthy.
+
 
 
 Restaurant has nested_attributes for reviews. called restaurant_attributes.
@@ -41,6 +49,8 @@ ________________________________________________________________________________
 Migrations
 
 rails g model User username:string email:string password_digest:string --no-test-framework
+
+rails generate migration add_uid_to_users uid:string --no-test-framework
 
 rails g model Restaurant name:string rating:integer location:string cuisine:string --no-test-framework
 
