@@ -9,9 +9,11 @@ Rails.application.routes.draw do
   get 'signup' => 'users#new', as: :signup
   post 'users' => 'users#create', as: :users
 
+  get '/auth/facebook/callback' => 'sessions#create'
+
   get 'login' => 'sessions#new', as: :login
   post 'sessions' => 'sessions#create', as: :sessions
   get 'logout' => 'sessions#destroy'
-  get '/auth/facebook/callback' => 'sessions#create'
+
 
 end

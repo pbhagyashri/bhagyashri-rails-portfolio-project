@@ -25,10 +25,7 @@ class RestaurantsController < ApplicationController
   end
 
   def show
-
     @review = Review.new
-    redirect_to login_path
-
   end
 
   def edit
