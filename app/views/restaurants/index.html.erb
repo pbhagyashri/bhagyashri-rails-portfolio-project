@@ -1,3 +1,5 @@
-<% @restaurants.each do |restaurant| %>
-  <%= render partial: "restaurant", locals: {restaurant: restaurant} %>
+<% current_user.restaurants.each do |restaurant| %>
+  <% if restaurant.users.first == current_user %>
+    <%= render partial: "restaurant", locals: {restaurant: restaurant} %>
+  <% end %>
 <% end %>

@@ -9,12 +9,15 @@
   <% end %>
 
   <% restaurant.reviews.each do |review| %>
+    <%= review.user.email %>
     <h4> Taste Rating: <%= review.taste_rating %></h4>
     <h4> Health Rating: <%= review.health_rating %></h4>
     <h4> Cleanliness Rating: <%= review.cleanliness_rating %></h4>
     <h4> Description: <%= review.description %></h4>
     <h4> Date: <%= review.date %></h4>
   <% end %>
+
+
 
   <span><%= link_to "View", restaurant_path(restaurant) %></span>
   <span><%= link_to "Edit", edit_restaurant_path(restaurant) %></span>
