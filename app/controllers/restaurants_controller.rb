@@ -17,6 +17,7 @@ class RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
+    @restaurant.status = true if params[:restaurant][:status] = "true"
     if @restaurant.save
       redirect_to restaurants_path
     else

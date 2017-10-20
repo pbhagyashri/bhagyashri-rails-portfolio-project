@@ -1,17 +1,17 @@
   <h1>Write a Review</h1>
   <p>
     <%= r.label :taste_rating %>
-    <%= r.text_field :taste_rating %>
+    <%= r.select(:taste_rating, options_for_select((1..5), {:selected => @review.taste_rating}), :prompt => "Select") %>
   </p>
 
   <p>
     <%= r.label :health_rating %>
-    <%= r.text_field :health_rating %>
+    <%= r.select(:health_rating, options_for_select((1..5), {:selected => @review.health_rating}), :prompt => "Select") %>
   </p>
 
   <p>
     <%= r.label :cleanliness_rating %>
-    <%= r.text_field :cleanliness_rating %>
+    <%= r.select(:cleanliness_rating, options_for_select((1..5), {:selected => @review.cleanliness_rating}), :prompt => "Select") %>
   </p>
 
   <p>
