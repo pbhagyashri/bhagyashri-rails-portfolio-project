@@ -1,7 +1,7 @@
 class RestaurantsController < ApplicationController
 
   before_action :set_restaurant, only: [:edit, :show, :destroy, :update]
-  #before_action :authentication_required, only: [:new, :show, :create, :destroy, :update, :edit]
+  before_action :authentication_required, only: [:new, :show, :create, :destroy, :update, :edit]
 
   include RestaurantHelper
 
