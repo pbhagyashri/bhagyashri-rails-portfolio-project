@@ -1,13 +1,18 @@
 class RestaurantsController < ApplicationController
 
   before_action :set_restaurant, only: [:edit, :show, :destroy, :update]
-  before_action :authentication_required
+  #before_action :authentication_required, only: [:new, :show, :create, :destroy, :update, :edit]
 
   include RestaurantHelper
 
 
   def index
-    @restaurants = Restaurant.all
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+      @restaurants = @user.restaurants
+    else
+      @restaurants = Restaurant.all
+    end
   end
 
   def new
@@ -27,10 +32,14 @@ class RestaurantsController < ApplicationController
   end
 
   def edit
-    if has_reviews(@restaurant)
-      @review = Review.find_by(restaurant_id: @restaurant.id)
+    if current_user
+      if has_reviews(@restaurant)
+        @review = Review.find_by(restaurant_id: @restaurant.id)
+      else
+        @review = @restaurant.reviews.build
+      end
     else
-      @review = @restaurant.reviews.build
+      flash[:message] = "You can only edit restaurants that you have created"
     end
 
   end
