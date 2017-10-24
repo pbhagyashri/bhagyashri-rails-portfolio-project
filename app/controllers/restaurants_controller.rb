@@ -16,26 +16,10 @@ class RestaurantsController < ApplicationController
   end
 
   def create
-
     @restaurant = Restaurant.new(restaurant_params)
-
-    @restaurant.status = true if params[:restaurant][:status] == "true"
-
-    if @restaurant.status == true
-      selected = selected_restaurant(@restaurant)
-
-      if restaurant_with_true_status && !selected.nil?
-        selected.reviews << @restaurant.reviews
-        selected.save
-      else
-        @restaurant.save
-      end
+    if @restaurant.save
       redirect_to root_path
-    else
-      @restaurant.save
-      redirect_to restaurants_path
     end
-
   end
 
   def show
@@ -55,15 +39,12 @@ class RestaurantsController < ApplicationController
   def update
     @restaurant.reviews.destroy_all
 
-    @restaurant.update(restaurant_params) if @restaurant.status == false
-    if params[:restaurant][:status] == "true"
-      @restaurant.status = true
-    elsif params[:restaurant][:status] == "false"
-      @restaurant.status = false
+    if @restaurant.update(restaurant_params)
+      redirect_to restaurant_path(@restaurant)
+    else
+      render :new
     end
-    @restaurant.save
 
-    redirect_to restaurant_path(@restaurant)
   end
 
   def destroy
@@ -78,7 +59,7 @@ class RestaurantsController < ApplicationController
   end
 
   def set_restaurant
-    @restaurant = current_user.restaurants.find_by(id: params[:id])
+    @restaurant = Restaurant.all.find_by(id: params[:id])
   end
 
 end

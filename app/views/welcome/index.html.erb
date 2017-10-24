@@ -1,19 +1,1 @@
 
-<h1>Hello</h1>
-<% if logged_in? %>
-  <%= current_user.username %><br>
-  <%= current_user.email %><br>
-
-  <%= link_to 'Logout', logout_path  %>
-<% else %>
-  <%= link_to 'Login', login_path %><br>
-  <%= link_to('Log in with Facebook!', '/auth/facebook') %><br>
-  <%= link_to 'Signup', signup_path %>
-
-<% end %>
-
-<br><br>
-
-<% restaurant_with_true_status.each do |restaurant| %>
-  <%= render partial: "/restaurants/restaurant", locals: {restaurant: restaurant} %>
-<% end %>

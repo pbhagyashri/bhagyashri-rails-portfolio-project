@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root 'welcome#index'
+  root 'restaurants#index'
   #resources :users, only: [:new, :create]
-  resources :restaurants
+  resources :restaurants, as: 'restaurants'
   delete 'restaurant/:id', to: 'restaurant#destroy'
   resources :reviews
 
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   end
 
   resources :users do
-    resources :restaurants, only: [:index, :show]
+    resources :restaurants
   end
 
 end
