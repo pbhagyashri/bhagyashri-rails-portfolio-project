@@ -16,28 +16,26 @@ class RestaurantsController < ApplicationController
   end
 
   def create
+
     @restaurant = Restaurant.new(restaurant_params)
 
     @restaurant.status = true if params[:restaurant][:status] == "true"
 
     if @restaurant.status == true
-        selected_restaurants = restaurant_with_true_status.select{|restaurant| restaurant if restaurant.name == @restaurant.name}
+      selected = selected_restaurant(@restaurant)
 
-      if !!restaurant_with_true_status && !selected_restaurants.empty?
-
-        selected_restaurants.first.reviews << @restaurant.reviews
-        selected_restaurants.first.save
+      if restaurant_with_true_status && !selected.nil?
+        selected.reviews << @restaurant.reviews
+        selected.save
       else
         @restaurant.save
       end
       redirect_to root_path
-
-    elsif @restaurant.status == false
+    else
       @restaurant.save
       redirect_to restaurants_path
-    elsif !@restaurant.save
-      render :new
     end
+
   end
 
   def show
@@ -55,9 +53,9 @@ class RestaurantsController < ApplicationController
 
 
   def update
-
     @restaurant.reviews.destroy_all
-    @restaurant.update(restaurant_params)
+
+    @restaurant.update(restaurant_params) if @restaurant.status == false
     if params[:restaurant][:status] == "true"
       @restaurant.status = true
     elsif params[:restaurant][:status] == "false"

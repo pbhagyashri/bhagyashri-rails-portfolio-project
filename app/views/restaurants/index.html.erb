@@ -1,5 +1,8 @@
+
 <% current_user.restaurants.each do |restaurant| %>
-  <% if restaurant.users.first == current_user %>
+
+  <% if restaurant.status == false %>
     <%= render partial: "restaurant", locals: {restaurant: restaurant} %>
   <% end %>
 <% end %>
+<!-- user_restaurants_path(current_user) -->

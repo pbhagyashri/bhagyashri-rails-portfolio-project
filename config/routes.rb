@@ -15,5 +15,12 @@ Rails.application.routes.draw do
   post 'sessions' => 'sessions#create', as: :sessions
   get 'logout' => 'sessions#destroy'
 
+  resources :restaurants do
+    resources :reviews, only: [:index, :show]
+  end
+
+  resources :users do
+    resources :restaurants, only: [:index, :show]
+  end
 
 end
