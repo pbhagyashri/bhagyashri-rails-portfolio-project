@@ -21,10 +21,21 @@ class RestaurantsController < ApplicationController
   end
 
   def create
-    @restaurant = Restaurant.new(restaurant_params)
-    if @restaurant.save
+
+    @restaurant = Restaurant.find_by(name: params[:restaurant][:name], location: params[:restaurant][:location])
+
+    # @restaurant = Restaurant.new(restaurant_params)
+    # if @restaurant.save
+    #   redirect_to root_path
+    # end
+    if !!@restaurant
+      flash[:message] = "Sorry Restaurant already exists. Please leave your Review below!!"
+      redirect_to restaurant_path(@restaurant)
+    else
+      @restaurant = Restaurant.create(restaurant_params)
       redirect_to root_path
     end
+
   end
 
   def show
@@ -58,7 +69,7 @@ class RestaurantsController < ApplicationController
 
   def destroy
     @restaurant.destroy
-    redirect_to restaurants_path
+    redirect_to root_path
   end
 
   private

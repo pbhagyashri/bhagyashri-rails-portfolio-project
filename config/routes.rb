@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'restaurants#index'
   #resources :users, only: [:new, :create]
-  resources :restaurants, only: [:show, :new, :create, :edit, :update]
-  # delete 'restaurant/:id', to: 'restaurant#destroy'
+  resources :restaurants, only: [:show, :new, :create, :edit, :update, :destroy]
+
   resources :reviews
 
   get 'signup' => 'users#new', as: :signup

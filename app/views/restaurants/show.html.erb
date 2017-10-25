@@ -1,11 +1,11 @@
+
+<% if flash[:message] %>
+  <p><%= flash[:message] %></p>
+<% end %>
+
 <%= render partial: "restaurant", locals: {restaurant: @restaurant} %>
 
-<% if !has_reviews(@restaurant) %>
-
-  <%= form_for(@review) do |f| %>
-    <%= render partial: "fields_for_reviews", locals: {r: f} %>
-
-    <%= f.submit value="Submit Review" %>
-  <% end %>
-
+<%= form_for(@review) do |f| %>
+  <%= render partial: "fields_for_reviews", locals: {r: f} %>
+  <%= f.submit value="Submit Review" %>
 <% end %>

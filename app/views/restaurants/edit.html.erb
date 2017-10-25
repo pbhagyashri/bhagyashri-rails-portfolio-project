@@ -1,1 +1,4 @@
- <%= render 'form' %>
+<% if @restaurant.users.first.id == current_user.id %>
+  <h1>Edit Restaurant</h1>
+  <%= render 'form' %>
+<% end %>
