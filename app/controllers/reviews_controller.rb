@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   def create
-    binding.pry
+
     @restaurant = Restaurant.find_by(id: params[:review][:restaurant_id])
     #@restaurant.reviews.build(review_params)
     @review = Review.create(review_params)

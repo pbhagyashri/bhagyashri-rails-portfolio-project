@@ -4,15 +4,27 @@
 <%= render partial: '/restaurants/render_errors', locals: {model_name: @user} %>
 
 <%= form_for(@user) do |f| %>
+  <p>
+    <%= f.label :username %>
+    <%= f.text_field :username, placeholder: "Please choose a username!" %>
+  </p>
 
-  <%= f.label :username %>
-  <%= f.text_field :username, placeholder: "Please choose a username!" %><br><br>
+  <p>
+   <%= f.label :email %>
+   <%= f.text_field :email, placeholder: "Register with your email!!" %><br><br>
+  </p>
 
-  <%= f.label :email %>
-  <%= f.text_field :email, placeholder: "Register with your email!!" %><br><br>
+  <p>
+    <h3>create an Admin account to Post your Restaurants.</h3>
+    <h4>With a non-admin account, you can write reviews for Restaurants.</h4>
+    <%= f.label "Admin?" %>
+    <%= f.select(:admin, options_for_select([['Yes', true], ['No', false]], {:selected => @user.admin}),:prompt => "Select") %>
+  </p>
 
-  <%= f.label :password %>
-  <%= f.password_field :password%><br><br>
+  <p>
+    <%= f.label :password %>
+    <%= f.password_field :password%><br><br>
+  </p>
 
-  <%= f.submit %>
+  <h2><%= f.submit %></h2>
 <% end %>

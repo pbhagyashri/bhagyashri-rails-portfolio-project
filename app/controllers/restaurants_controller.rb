@@ -5,7 +5,6 @@ class RestaurantsController < ApplicationController
 
   include RestaurantHelper
 
-
   def index
     if params[:user_id]
       @user = User.find(params[:user_id])
@@ -21,21 +20,18 @@ class RestaurantsController < ApplicationController
   end
 
   def create
+    if is_admin?
+      @restaurant = Restaurant.find_by(name: params[:restaurant][:name], location: params[:restaurant][:location])
 
-    @restaurant = Restaurant.find_by(name: params[:restaurant][:name], location: params[:restaurant][:location])
-
-    # @restaurant = Restaurant.new(restaurant_params)
-    # if @restaurant.save
-    #   redirect_to root_path
-    # end
-    if !!@restaurant
-      flash[:message] = "Sorry Restaurant already exists. Please leave your Review below!!"
-      redirect_to restaurant_path(@restaurant)
+      if !!@restaurant
+        flash[:message] = "Sorry Restaurant already exists. Please leave your Review below!!"
+      else
+        @restaurant = Restaurant.create(restaurant_params)
+      end
     else
-      @restaurant = Restaurant.create(restaurant_params)
-      redirect_to root_path
+      flash[:message] = "Sorry you need an admin account to add a Restaurant"
     end
-
+    redirect_to root_path
   end
 
   def show
@@ -43,33 +39,26 @@ class RestaurantsController < ApplicationController
   end
 
   def edit
-    if current_user
-      if has_reviews(@restaurant)
-        @review = Review.find_by(restaurant_id: @restaurant.id)
-      else
-        @review = @restaurant.reviews.build
-      end
-    else
-      flash[:message] = "You can only edit restaurants that you have created"
-    end
 
   end
 
-
   def update
-    @restaurant.reviews.destroy_all
+    if is_admin?
+      @restaurant.reviews.destroy_all
 
-    if @restaurant.update(restaurant_params)
-      redirect_to restaurant_path(@restaurant)
-    else
-      render :new
+      if @restaurant.update(restaurant_params)
+        redirect_to restaurant_path(@restaurant)
+      else
+        render :new
+      end
     end
-
   end
 
   def destroy
-    @restaurant.destroy
-    redirect_to root_path
+    if is_admin?
+      @restaurant.destroy
+      redirect_to root_path
+    end
   end
 
   private

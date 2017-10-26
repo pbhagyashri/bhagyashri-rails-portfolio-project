@@ -1,6 +1,6 @@
 Relationships between Models :
 
-User has many reviews and has many Restaurants through Reviews
+User has many Restaurants and has many reviews through Restaurants
 
 Restaurant has many Reviews and has many Users through Reviews.
 
@@ -51,6 +51,8 @@ Migrations
 rails g model User username:string email:string password_digest:string --no-test-framework
 
 rails generate migration add_uid_to_users uid:string --no-test-framework
+rails generate migration add_admin_to_users admin:boolean --no-test-framework
+rails g migration remove_status_from_restaurants status:boolean --no-test-framework
 
 rails generate migration add_status_to_restaurants status:boolean --no-test-framework
 

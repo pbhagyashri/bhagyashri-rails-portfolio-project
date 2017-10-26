@@ -15,6 +15,10 @@
 
 <hr>
 
+<% if flash[:message] %>
+  <h2><%= flash[:message] %></h2>
+<% end %>
+
 <% @restaurants.each do |restaurant| %>
 
   <%= render partial: "restaurant", locals: {restaurant: restaurant} %>

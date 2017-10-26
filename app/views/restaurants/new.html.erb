@@ -1,6 +1,6 @@
- <%= render partial: 'render_errors', locals: {model_name: @restaurant} %>
 
-
+<%= render partial: 'render_errors', locals: {model_name: @restaurant} %>
+<% if is_admin? %>
  <h1>Add A Restaurant</h1>
 
  <%= form_for(@restaurant) do |f| %>
@@ -20,11 +20,6 @@
    </h3>
 
    <h3>
-     <%= f.label "Set Status" %>
-     <%= f.select(:status, options_for_select([['Public', true], ['Private', false]], {:selected => @restaurant.status}),:prompt => "Select") %>
-   </h3>
-
-   <h3>
      <%= f.fields_for :reviews, @review do |review_builder| %>
        <%= render partial: "fields_for_reviews", locals: {r: review_builder} %>
 
@@ -33,3 +28,4 @@
    <h3><%= f.submit %></h3>
 
  <% end %>
+<% end %>
