@@ -44,14 +44,16 @@ class RestaurantsController < ApplicationController
 
   def update
     if is_admin?
-      @restaurant.reviews.destroy_all
 
       if @restaurant.update(restaurant_params)
         redirect_to restaurant_path(@restaurant)
       else
         render :new
       end
+    else
+      binding.pry
     end
+
   end
 
   def destroy

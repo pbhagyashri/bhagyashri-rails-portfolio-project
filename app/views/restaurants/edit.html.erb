@@ -1,4 +1,25 @@
-<% if @restaurant.users.first.id == current_user.id %>
+
+<% if is_admin? %>
   <h1>Edit Restaurant</h1>
-  <%= render 'form' %>
+
+  <%= form_for(@restaurant) do |f| %>
+    <h3>
+      <%= f.label :Name %>
+      <%= f.text_field :name %>
+    </h3>
+
+    <h3>
+      <%= f.label :Location %>
+      <%= f.text_field :location %>
+    </h3>
+
+    <h3>
+      <%= f.label :Cuisine %>
+      <%= f.text_field :cuisine %>
+    </h3>
+
+    <h3>
+      <%= f.submit %>
+    </h3>
+  <% end %>
 <% end %>
