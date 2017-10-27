@@ -13,8 +13,16 @@ class Restaurant < ApplicationRecord
     end
   end
 
-  def self.top_five_restaurants
+  def self.tastiest_restuarants
+    self.all.map do |restaurant|
+      restaurant.name if restaurant.reviews.any?{|review| review.taste_rating == 5}
+    end
+  end
 
+  def self.healthies_restuarants
+    self.all.map do |restaurant|
+      restaurant.name if restaurant.reviews.any?{|review| review.health_rating >= 4}
+    end
   end
 
 end
