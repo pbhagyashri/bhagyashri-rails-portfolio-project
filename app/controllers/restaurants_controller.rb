@@ -50,8 +50,6 @@ class RestaurantsController < ApplicationController
       else
         render :new
       end
-    else
-      binding.pry
     end
 
   end
