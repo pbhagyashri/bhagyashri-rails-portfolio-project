@@ -5,8 +5,10 @@
 
 <%= render partial: "restaurant", locals: {restaurant: @restaurant} %>
 
-<h2>Write a Review!</h2>
-<%= form_for(@review) do |f| %>
-<%= render partial: "fields_for_reviews", locals: {r: f} %>
-<%= f.submit value="Submit Review" %>
+<% if !is_admin? %>
+  <h2>Write a Review!</h2>
+  <%= form_for(@review) do |f| %>
+  <%= render partial: "fields_for_reviews", locals: {r: f} %>
+  <%= f.submit value="Submit Review" %>
+  <% end %>
 <% end %>

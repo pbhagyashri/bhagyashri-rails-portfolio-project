@@ -19,9 +19,5 @@
     <%= r.text_area :description, size: "20x3" %>
   </p>
 
-  <% if @restaurant.users.empty? %>
-    <%= r.hidden_field :user_id, :value => current_user.id %>
-  <% else %>
-    <%= r.hidden_field :user_id, :value => current_user.id %>
-  <% end %>
+  <%= r.hidden_field :user_id, :value => current_user.id %>
   <%= r.hidden_field :restaurant_id, :value => @restaurant.id %>

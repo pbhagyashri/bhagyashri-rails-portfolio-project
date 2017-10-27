@@ -2,18 +2,26 @@
   <h2><span style="color: #517A2A">Name:</span> <%= link_to restaurant.name, restaurant_path(restaurant) %></h2>
   <h3><span style="color: #517A2A">Cuisine:</span> <%= restaurant.cuisine %><h3>
   <h3><span style="color: #517A2A">Location:</span> <%= restaurant.location %></h3>
-  <h3><%= link_to "Edit", edit_restaurant_path(restaurant) %></h3>
+  <% if is_admin? %>
+    <h3><%= link_to "Edit", edit_restaurant_path(restaurant) %></h3>
+  <% end %>
+  <hr>
   <% if has_reviews(restaurant) %>
-    <h3>Review:</h3>
+    <h2 style="color: #517A2A">Reviews:</h2>
   <% end %>
 
   <% restaurant.reviews.each do |review| %>
-  <%= review.user.email %>
+  <h3 style="color: #FD8664"><%= review.user.username %></h3>
   <h4> Taste Rating: <%= review.taste_rating %></h4>
   <h4> Health Rating: <%= review.health_rating %></h4>
   <h4> Cleanliness Rating: <%= review.cleanliness_rating %></h4>
   <h4> Description: <%= review.description %></h4>
   <h4> Date: <%= review.date %></h4>
+
+  <% if review.user_id == current_user.id && !is_admin?  %>
+    <%= link_to "Edit", edit_review_path(review) %>
+  <% end %>
+
   <% end %>
 
 </div>

@@ -1,15 +1,25 @@
 class ReviewsController < ApplicationController
   def create
+      if !is_admin? and logged_in?
+      @restaurant = Restaurant.find_by(id: params[:review][:restaurant_id])
+      @review = @restaurant.reviews.build(review_params)
+      @review.date = Date.today
+      @restaurant.save
+      redirect_to root_path
+    end
+  end
 
-    @restaurant = Restaurant.find_by(id: params[:review][:restaurant_id])
-    #@restaurant.reviews.build(review_params)
-    @review = Review.create(review_params)
+  def edit
+    @review = Review.find_by(id: params[:id])
+  end
 
-    @review.save
-    @restaurant.reviews << @review
-    @restaurant.save
-    # @review = Review.create(review_params)
-    redirect_to root_path
+  def update
+    @review = Review.find_by(id: params[:id])
+    if @review.update(review_params)
+      redirect_to root_path
+    else
+      render :edit
+    end
   end
 
   def review_params
