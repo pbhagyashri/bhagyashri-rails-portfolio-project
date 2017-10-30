@@ -1,5 +1,9 @@
+
+<!------------------------------ Navigation Links ----------------------------->
+
 <% if logged_in? %>
   <%= link_to 'Logout', logout_path  %>
+
   <h1>Hello <%= current_user.username %></h1>
 
   <%= link_to "Your Profile", user_path(current_user) %>
@@ -19,6 +23,8 @@
 
 <hr>
 
+<!----------------- tastiest_restuarants and healthies_restuarants ------------>
+
 <% if flash[:message] %>
   <h2><%= flash[:message] %></h2>
 <% end %>
@@ -37,8 +43,12 @@
   <% end %>
 </div>
 
+<!-- ----------------------- Render All Restaurants -------------------------- -->
+
 <div>
-<% @restaurants.each do |restaurant| %>
-  <%= render partial: "restaurant", locals: {restaurant: restaurant} %>
+<% if @restaurants != nil %>
+  <% @restaurants.each do |restaurant| %>
+    <%= render partial: "restaurant", locals: {restaurant: restaurant} %>
+  <% end %>
 <% end %>
 </div>

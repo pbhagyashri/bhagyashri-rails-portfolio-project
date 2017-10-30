@@ -1,16 +1,19 @@
 <h1>Hello <%= current_user.username.capitalize %></h1>
+
 <% if is_admin? %>
   <%= link_to "Your Restuarants", user_restaurants_path(current_user) %>
 <% end %>
 
 <% if !is_admin? %>
+
   <h2>Your Reviews</h2>
   <% @user.reviews.each do |review| %>
+
+    <h3 style="color: #FD8664"><%= review.user.username %></h3>
     <h2>Restaurant Name: <%= review.restaurant.name %></h2>
-    <h3>Taste Rating: <%= review.taste_rating %></h3>
-    <h3>Health Rating: <%= review.health_rating %></h3>
-    <h3>Cleanliness Rating:  <%= review.cleanliness_rating %></h3>
-    <h3>Description: <%= review.description %></h3>
-    <h4>Date: <%= review.date %></h4>
+
+    <%= render partial: '/reviews/review', locals: {review: review} %>
+
   <% end %>
+
 <% end %>
