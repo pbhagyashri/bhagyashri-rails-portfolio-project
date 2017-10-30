@@ -3,20 +3,7 @@
   <h1>Edit Restaurant</h1>
 
   <%= form_for(@restaurant) do |f| %>
-    <h3>
-      <%= f.label :Name %>
-      <%= f.text_field :name %>
-    </h3>
-
-    <h3>
-      <%= f.label :Location %>
-      <%= f.text_field :location %>
-    </h3>
-
-    <h3>
-      <%= f.label :Cuisine %>
-      <%= f.text_field :cuisine %>
-    </h3>
+    <%= render partial: "form", locals: {f: f} %>
 
     <h3>
       <%= f.submit %>
