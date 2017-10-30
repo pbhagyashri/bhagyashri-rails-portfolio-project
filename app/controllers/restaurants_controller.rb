@@ -27,6 +27,11 @@ class RestaurantsController < ApplicationController
         flash[:message] = "Sorry Restaurant already exists. Please leave your Review below!!"
       else
         @restaurant = Restaurant.create(restaurant_params)
+
+        review = @restaurant.reviews.first
+        review.date = Date.today
+        review.save
+        @restaurant.save
       end
     else
       flash[:message] = "Sorry you need an admin account to add a Restaurant"

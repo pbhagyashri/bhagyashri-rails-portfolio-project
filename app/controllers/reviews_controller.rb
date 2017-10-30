@@ -18,9 +18,9 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    if !is_admin?
+    if @review.user_id == current_user.id
       if @review.update(review_params)
-        redirect_to review_path(@review)
+        redirect_to root_path
       else
         render :edit
       end
