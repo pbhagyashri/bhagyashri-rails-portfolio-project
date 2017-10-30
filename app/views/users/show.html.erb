@@ -1,21 +1,16 @@
 <h1>Hello <%= current_user.username.capitalize %></h1>
-
-<% current_user.restaurants.each do |restaurant| %>
-  <% if restaurant.reviews.first.user == current_user %>
-    <%= render partial: "restaurants/restaurant", locals: {restaurant: restaurant} %>
-    <div style="width: 50%; margin-left: 25%; margin-bottom: 10px;">
-      <%= link_to "Edit Restaurant", edit_restaurant_path(restaurant)%>
-      <span><%= link_to "Delete", restaurant, method: :delete, data: { confirm: "Are you sure?" } %></span>
-    </div>
-  <% end %>
+<% if is_admin? %>
+  <%= link_to "Your Restuarants", user_restaurants_path(current_user) %>
 <% end %>
 
 <% if !is_admin? %>
+  <h2>Your Reviews</h2>
   <% @user.reviews.each do |review| %>
-    <%= review.taste_rating %><br>
-    <%= review.health_rating %><br>
-    <%= review.cleanliness_rating %><br>
-    <%= review.description %><br>
-    <%= review.date %><br><br><br>
+    <h2>Restaurant Name: <%= review.restaurant.name %></h2>
+    <h3>Taste Rating: <%= review.taste_rating %></h3>
+    <h3>Health Rating: <%= review.health_rating %></h3>
+    <h3>Cleanliness Rating:  <%= review.cleanliness_rating %></h3>
+    <h3>Description: <%= review.description %></h3>
+    <h4>Date: <%= review.date %></h4>
   <% end %>
 <% end %>
