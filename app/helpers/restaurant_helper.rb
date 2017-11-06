@@ -8,4 +8,10 @@ module RestaurantHelper
     owner == current_user ? true : false
   end
 
+  def add_date_to_review(restaurant)
+    first_review = restaurant.reviews.first
+    first_review.date = Date.today
+    first_review.save
+  end
+
 end
