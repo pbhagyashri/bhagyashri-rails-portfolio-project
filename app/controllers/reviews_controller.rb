@@ -3,6 +3,8 @@ class ReviewsController < ApplicationController
   before_action :set_review, only: [:edit, :show, :destroy, :update]
   before_action :authentication_required, only: [:new, :create, :destroy, :update, :edit]
 
+  include ReviewHelper
+
   def create
     if !is_admin?
       @restaurant = Restaurant.find_by(id: params[:review][:restaurant_id])
@@ -18,7 +20,7 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    if @review.user_id == current_user.id
+    if valid_user?(@review)
       if @review.update(review_params)
         redirect_to root_path
       else
@@ -28,7 +30,7 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    if !is_admin?
+    if valid_user?(@review)
       @review.destroy
       redirect_to root_path
     end

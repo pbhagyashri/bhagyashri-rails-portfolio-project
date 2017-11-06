@@ -59,7 +59,7 @@ class RestaurantsController < ApplicationController
   end
 
   def destroy
-    if is_admin?
+    if is_admin? && restuarant_owner(@restaurant)
       @restaurant.destroy
       redirect_to root_path
     end
