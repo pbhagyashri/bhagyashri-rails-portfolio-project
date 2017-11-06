@@ -1,7 +1,6 @@
 
 <%= render partial: 'render_errors', locals: {model_name: @restaurant} %>
 <% if is_admin? %>
- <h1>Add A Restaurant</h1>
 
  <%= form_for(@restaurant) do |f| %>
    <%= render partial: "form", locals: {f: f} %>

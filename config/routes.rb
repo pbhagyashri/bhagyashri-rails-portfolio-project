@@ -19,8 +19,8 @@ Rails.application.routes.draw do
     resources :reviews, only: [:index, :show]
   end
 
-  resources :users do
-    resources :restaurants
+  resources :users, only: [:show] do
+    resources :restaurants, only: [:index, :create, :show, :new]
   end
 
 end

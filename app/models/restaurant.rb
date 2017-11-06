@@ -27,9 +27,3 @@ class Restaurant < ApplicationRecord
 
 end
 
-# <%= form_for([@document, @comment]) do |f| %>
-#  ...
-# <% end %>
-# @user, Restaurant.new
-# [@user, Restaurant.new]
-# edit review redirect not working

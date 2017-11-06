@@ -1,4 +1,4 @@
-  <h1>Write a Review</h1>
+
   <p>
     <%= r.label :taste_rating %>
     <%= r.select(:taste_rating, options_for_select((1..5), {:selected => @review.taste_rating}), :prompt => "Select") %>
