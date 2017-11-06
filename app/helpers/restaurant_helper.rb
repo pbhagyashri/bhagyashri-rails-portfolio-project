@@ -3,12 +3,9 @@ module RestaurantHelper
     !restaurant.reviews.empty? ? true : false
   end
 
-  def restaurant_with_true_status
-    Restaurant.where(status: true)
-  end
-
-  def selected_restaurant(restaurant)
-    restaurant_with_true_status.find_by(name: restaurant.name)
+  def restuarant_owner(restaurant)
+    owner = restaurant.users.where(admin: true).first
+    owner == current_user ? true : false
   end
 
 end

@@ -24,7 +24,7 @@ class RestaurantsController < ApplicationController
       @restaurant = Restaurant.find_by(name: params[:restaurant][:name], location: params[:restaurant][:location])
 
       if !!@restaurant
-        flash[:message] = "Sorry Restaurant already exists. Please leave your Review below!!"
+        flash[:message] = "Sorry Restaurant already exists"
       else
         @restaurant = Restaurant.create(restaurant_params)
 
@@ -48,13 +48,15 @@ class RestaurantsController < ApplicationController
   end
 
   def update
-    if is_admin?
+
+    if is_admin? && restuarant_owner(@restaurant)
 
       if @restaurant.update(restaurant_params)
         redirect_to restaurant_path(@restaurant)
       else
         render :new
       end
+
     end
 
   end

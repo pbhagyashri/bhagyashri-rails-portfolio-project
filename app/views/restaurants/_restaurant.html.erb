@@ -3,7 +3,7 @@
   <h3><span style="color: #517A2A">Cuisine:</span> <%= restaurant.cuisine %><h3>
   <h3><span style="color: #517A2A">Location:</span> <%= restaurant.location %></h3>
 
-  <% if is_admin? %>
+  <% if is_admin? && restuarant_owner(restaurant)%>
     <h3><%= link_to "Edit", edit_restaurant_path(restaurant) %></h3>
   <% end %>
 
