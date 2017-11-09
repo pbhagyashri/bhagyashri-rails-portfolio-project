@@ -1,27 +1,5 @@
 <%= form_for(@review) do |f| %>
   <h1>Write a Review</h1>
-  <p>
-    <%= f.label :taste_rating %>
-    <%= f.select(:taste_rating, options_for_select((1..5), {:selected => @review.taste_rating}), :prompt => "Select") %>
-  </p>
-
-  <p>
-    <%= f.label :health_rating %>
-    <%= f.select(:health_rating, options_for_select((1..5), {:selected => @review.health_rating}), :prompt => "Select") %>
-  </p>
-
-  <p>
-    <%= f.label :cleanliness_rating %>
-    <%= f.select(:cleanliness_rating, options_for_select((1..5), {:selected => @review.cleanliness_rating}), :prompt => "Select") %>
-  </p>
-
-  <p>
-    <%= f.label :description %>
-    <%= f.text_area :description, size: "20x3" %>
-  </p>
-
-  <%= f.hidden_field :user_id, :value => current_user.id %>
-  <%= f.hidden_field :restaurant_id, :value => @review.restaurant.id %>
-
+  <%= render partial: "restaurants/fields_for_reviews", locals: {r: f} %>
   <p><%= f.submit %></p>
 <% end %>

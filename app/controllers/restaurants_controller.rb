@@ -30,6 +30,7 @@ class RestaurantsController < ApplicationController
         add_date_to_review(@restaurant)
         @restaurant.save
       end
+
     else
       flash[:message] = "Sorry you need an admin account to add a Restaurant"
     end
@@ -41,7 +42,6 @@ class RestaurantsController < ApplicationController
   end
 
   def edit
-
   end
 
   def update

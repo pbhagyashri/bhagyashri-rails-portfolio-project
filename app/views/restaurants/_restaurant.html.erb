@@ -1,7 +1,7 @@
-<div style="background-color: #E0E6E6; padding: 20px; width: 50%; margin-left: 25%; margin-bottom: 10px;">
-  <h2><span style="color: #517A2A">Name:</span> <%= link_to restaurant.name, restaurant_path(restaurant) %></h2>
-  <h3><span style="color: #517A2A">Cuisine:</span> <%= restaurant.cuisine %><h3>
-  <h3><span style="color: #517A2A">Location:</span> <%= restaurant.location %></h3>
+<div class="restuarant_list">
+  <h2><span class="add_color">Name:</span> <%= link_to restaurant.name, restaurant_path(restaurant) %></h2>
+  <h3><span class="add_color">Cuisine:</span> <%= restaurant.cuisine %><h3>
+  <h3><span class="add_color">Location:</span> <%= restaurant.location %></h3>
 
   <% if is_admin? && restuarant_owner(restaurant)%>
     <h3><%= link_to "Edit", edit_restaurant_path(restaurant) %></h3>
@@ -14,11 +14,11 @@
   <hr>
 
   <% if has_reviews(restaurant) %>
-    <h2 style="color: #517A2A">Reviews:</h2>
+    <h2>Reviews:</h2>
   <% end %>
 
   <% restaurant.reviews.each do |review| %>
-    <h3 style="color: #FD8664"><%= review.user.username %></h3>
+    <h3><%= review.user.username %></h3>
 
     <%= render partial: '/reviews/review', locals: {review: review} %>
 

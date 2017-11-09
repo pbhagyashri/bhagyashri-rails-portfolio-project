@@ -8,6 +8,7 @@
    <h3>
      <%= f.fields_for :reviews, @review do |review_builder| %>
        <%= render partial: "fields_for_reviews", locals: {r: review_builder} %>
+
      <% end %>
    </h3>
    <h3><%= f.submit %></h3>

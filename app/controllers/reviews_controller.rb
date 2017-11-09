@@ -7,10 +7,14 @@ class ReviewsController < ApplicationController
 
   def create
     if !is_admin?
-      @restaurant = Restaurant.find_by(id: params[:review][:restaurant_id])
-      @review = @restaurant.reviews.build(review_params)
+
+      #@restaurant = Restaurant.find_by(id: params[:review][:restaurant_id])
+      @review = Review.new(review_params)
       @review.date = Date.today
-      @restaurant.save
+      @review.user_id = current_user.id
+
+      @review.restaurant = my_variable
+      @review.save
       redirect_to root_path
     end
   end
@@ -39,12 +43,11 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:taste_rating, :health_rating, :cleanliness_rating, :description, :date, :status, :restaurant_id, :user_id)
+    params.require(:review).permit(:taste_rating, :health_rating, :cleanliness_rating, :description, :user_id, :restaurant_id, :my_variable)
   end
 
   def set_review
     @review = Review.find_by(id: params[:id])
   end
-
 
 end
