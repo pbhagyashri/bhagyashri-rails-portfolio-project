@@ -9,7 +9,7 @@
   <h2>Write a Review!</h2>
   <%= form_for(@review) do |f| %>
 
-  <%= render partial: "fields_for_reviews", locals: {r: f, my_variable: = @restaurant} %>
+  <%= render partial: "fields_for_reviews", locals: {r: f} %>
   <%= f.submit value="Submit Review" %>
   <% end %>
 <% end %>

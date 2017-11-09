@@ -18,3 +18,7 @@
     <%= r.label :description %>
     <%= r.text_area :description, size: "20x3" %>
   </p>
+
+  <p>
+    <%= r.hidden_field :restaurant_id, :value => @review.restaurant.id %>
+  </p>

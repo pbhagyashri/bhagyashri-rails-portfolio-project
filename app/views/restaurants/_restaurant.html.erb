@@ -18,8 +18,8 @@
   <% end %>
 
   <% restaurant.reviews.each do |review| %>
-    <h3><%= review.user.username %></h3>
 
+    <h3><%= review.user.username if review.user%></h3>
     <%= render partial: '/reviews/review', locals: {review: review} %>
 
     <% if logged_in? && valid_user?(review) %>

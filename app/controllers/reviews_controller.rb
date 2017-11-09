@@ -5,6 +5,7 @@ class ReviewsController < ApplicationController
 
   include ReviewHelper
 
+
   def create
     if !is_admin?
 
@@ -12,9 +13,9 @@ class ReviewsController < ApplicationController
       @review = Review.new(review_params)
       @review.date = Date.today
       @review.user_id = current_user.id
-
-      @review.restaurant = my_variable
+      #@review.restaurant_id = @restaurant.id
       @review.save
+
       redirect_to root_path
     end
   end
@@ -43,7 +44,7 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:taste_rating, :health_rating, :cleanliness_rating, :description, :user_id, :restaurant_id, :my_variable)
+    params.require(:review).permit(:taste_rating, :health_rating, :cleanliness_rating, :description, :restaurant_id, :user_id, :id)
   end
 
   def set_review

@@ -38,7 +38,7 @@ class RestaurantsController < ApplicationController
   end
 
   def show
-    @review = Review.new
+    @review = @restaurant.reviews.build
   end
 
   def edit
