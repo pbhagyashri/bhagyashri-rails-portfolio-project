@@ -32,7 +32,7 @@ class RestaurantsController < ApplicationController
         add_date_to_review(@restaurant)
         
         @restaurant.users << current_user
-        raise @restaurant.errors.inspect
+      
         @restaurant.save
       end
 
