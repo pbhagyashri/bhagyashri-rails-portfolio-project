@@ -20,14 +20,19 @@ class RestaurantsController < ApplicationController
   end
 
   def create
+   
     if is_admin?
       @restaurant = Restaurant.find_by(name: params[:restaurant][:name], location: params[:restaurant][:location])
 
       if !!@restaurant
         flash[:message] = "Sorry Restaurant already exists"
       else
+         
         @restaurant = Restaurant.create(restaurant_params)
         add_date_to_review(@restaurant)
+        
+        @restaurant.users << current_user
+        raise @restaurant.errors.inspect
         @restaurant.save
       end
 
