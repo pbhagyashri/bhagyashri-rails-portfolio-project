@@ -59,3 +59,23 @@ rails generate migration add_status_to_restaurants status:boolean --no-test-fram
 rails g model Restaurant name:string rating:integer location:string cuisine:string --no-test-framework
 
 rails g model Review taste_rating:integer health_rating:integer cleanliness_rating:integer description:text date:date restaurant_id:integer user_id:integer --no-test-framework
+
+____________________________________________________________________________________________________
+
+Project Requirements -
+
+- Must render atleast one index page with a list of things. (Restaurants, User's Restaurants).
+- Must render atleast one show page with one specific thing. (Resaturant show page - Next Button).
+- Atleast 1 has-many relationship. (Restaurant Reviews on show page).
+- Must use rails API and a form to create a resource and render ther resonse without a page refresh. Append it to page.(form to add review on restaurant's show page).
+- Must translate the JSON response into Javascript Model Object. The Model Object must have atleast one method on the prototype.
+
+______________________________________________________________________________________________________
+
+New Tasks -
+
+- Add Active Model Serializer Gem and set up relationships. 
+- Update Controllers to render JSON. 
+- Make sure Models and relationships are working.
+- Add form for reviews and display new reviews without refreshing the page on restaurant show page.
+- Add next button to show new resource on show page. 
