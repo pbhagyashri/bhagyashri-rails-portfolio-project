@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'restaurants#index'
   #resources :users, only: [:new, :create]
   resources :restaurants, only: [:create, :show, :edit, :update, :destroy]
-
+  #get "/stylesheets/style.css"
   resources :reviews
 
   get 'signup' => 'users#new', as: :signup
