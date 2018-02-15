@@ -9,6 +9,7 @@ class RestaurantsController < ApplicationController
     if params[:user_id]
       @user = User.find(params[:user_id])
       @restaurants = @user.restaurants
+      render json: @restaurants, status: 200
     else
       @restaurants = Restaurant.all
     end
