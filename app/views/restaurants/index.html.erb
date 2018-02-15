@@ -1,45 +1,45 @@
 
 <!------------------------------ Navigation Links ----------------------------->
 
-<% if logged_in? %>
-  <%= link_to 'Logout', logout_path  %>
-  <h3>Hello <%= current_user.username %></h3>
-  <%= link_to "Your Profile", user_path(current_user) %>
+<!--<#% if logged_in? %>-->
+<!--  <#%= link_to 'Logout', logout_path  %>-->
+<!--  <h3>Hello <%= current_user.username %></h3>-->
+<!--  <#%= link_to "Your Profile", user_path(current_user) %>-->
 
-  <% if params[:user_id] && is_admin? %>
-    <%= link_to "Add Restaurant", new_user_restaurant_path(current_user) %>
-  <% elsif !params[:user_id] && is_admin? %>
-    <%= link_to "Add Restaurant", new_restaurant_path(@restaurant) %>
-  <% end %>
+<!--  <#% if params[:user_id] && is_admin? %>-->
+<!--    <#%= link_to "Add Restaurant", new_user_restaurant_path(current_user) %>-->
+<!--  <#% elsif !params[:user_id] && is_admin? %>-->
+<!--    <#%= link_to "Add Restaurant", new_restaurant_path(@restaurant) %>-->
+<!--  <#% end %>-->
 
-<% else %>
-  <%= link_to 'Login', login_path %><br>
-  <%= link_to('Log in with Facebook!', '/auth/facebook') %><br>
-  <%= link_to 'Signup', signup_path %>
-<% end %>
-<br>
+<!--<#% else %>-->
+<!--  <#%= link_to 'Login', login_path %><br>-->
+<!--  <#%= link_to('Log in with Facebook!', '/auth/facebook') %><br>-->
+<!--  <#%= link_to 'Signup', signup_path %>-->
+<!--<#% end %>-->
+<!--<br>-->
 
-<hr>
+<!--<hr>-->
 
 <!----------------- tastiest_restuarants and healthies_restuarants ------------>
 
-<% if flash[:message] %>
-  <h2><%= flash[:message] %></h2>
-<% end %>
+<!--<#% if flash[:message] %>-->
+<!--  <h2><#%= flash[:message] %></h2>-->
+<!--<#% end %>-->
 
-<div style="background-color: #FD8664; padding: 20px; margin-bottom: 10px; width: 50%; margin-left: 25%;">
-  <h2>Tastiest Restaurants</h2>
-  <% Restaurant.tastiest_restuarants.each do |restaurant|%>
-  <h3><%= link_to restaurant.name, restaurant_path(restaurant) %></h3>
-  <% end %>
-</div>
+<!--<div style="background-color: #FD8664; padding: 20px; margin-bottom: 10px; width: 50%; margin-left: 25%;">-->
+<!--  <h2>Tastiest Restaurants</h2>-->
+<!--  <#% Restaurant.tastiest_restuarants.each do |restaurant|%>-->
+<!--  <h3><#%= link_to restaurant.name, restaurant_path(restaurant) %></h3>-->
+<!--  <#% end %>-->
+<!--</div>-->
 
-<div style="background-color: #8AB661; padding: 20px; margin-bottom: 10px; width: 50%; margin-left: 25%;">
-  <h2>Healthiest Restaurants</h2>
-  <% Restaurant.healthies_restuarants.each do |restaurant|%>
-    <h3><%= link_to restaurant.name, restaurant_path(restaurant) %></h3>
-  <% end %>
-</div>
+<!--<div style="background-color: #8AB661; padding: 20px; margin-bottom: 10px; width: 50%; margin-left: 25%;">-->
+<!--  <h2>Healthiest Restaurants</h2>-->
+<!--  <#% Restaurant.healthies_restuarants.each do |restaurant|%>-->
+<!--    <h3><#%= link_to restaurant.name, restaurant_path(restaurant) %></h3>-->
+<!--  <#% end %>-->
+<!--</div>-->
 
 <!-- ----------------------- Render All Restaurants -------------------------- -->
 
@@ -51,3 +51,7 @@
 <!--<#% end %>-->
 <!--</div>-->
 
+
+<div id="allRestaurants">
+  <h1>Hi</h1>
+</div>

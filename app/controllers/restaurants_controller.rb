@@ -6,14 +6,17 @@ class RestaurantsController < ApplicationController
   include RestaurantHelper
 
   def index
-    if params[:user_id]
-      @user = User.find(params[:user_id])
-      @restaurants = @user.restaurants
-      render json: @restaurants, status: 200
-    else
+    # if params[:user_id]
+    #   @user = User.find(params[:user_id])
+    #   @restaurants = @user.restaurants
+      #render json: @restaurants, status: 200
+    #else
       @restaurants = Restaurant.all
-      render json: @restaurants, status: 200
-    end
+      respond_to do |f|
+        f.html
+        f.json {render json: @restaurants}
+      end
+    #end
   end
 
   def new
