@@ -12,6 +12,7 @@ class RestaurantsController < ApplicationController
       render json: @restaurants, status: 200
     else
       @restaurants = Restaurant.all
+      render json: @restaurants, status: 200
     end
   end
 
