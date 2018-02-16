@@ -10,7 +10,8 @@ $( document ).ready(function() {
   //alert("what's going on?")
   $.get('/restaurants.json').done(function(json){
     $.each(json, function(index, restaurant) {
-      restaurantDiv.append(restaurant.id)
+      //debugger
+      console.log(restaurant.name)
     })
   })
     

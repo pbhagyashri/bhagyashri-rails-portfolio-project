@@ -3,7 +3,7 @@
   <head>
     <title>BetterMeals</title>
     <%= csrf_meta_tags %>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag    'style', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -11,8 +11,43 @@
   </head>
 
   <body>
-    <!--<#%= link_to "Home", root_path %>-->
-    <!--<h1 id="logo" style="text-align: center;">Better Meals</h1>-->
+    
+    <div class="page-header">
+      <h1>Better Meals</h1>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+
+          <ul class="nav nav-pills">
+            <li class="active"><%= link_to "Home", root_path %></li>
+            
+            <% if logged_in? %>
+              <p class="navbar-text navbar-right">Hello <%= current_user.username %>!</p>
+              <li><%= link_to 'Logout', logout_path%></li>
+              <li><%= link_to "Your Profile", user_path(current_user)%></li>
+              <li><%= link_to "Restaurants", restaurants_path%></li>
+              <% if params[:user_id] && is_admin? %>
+                <li><%= link_to "Add Restaurant", new_user_restaurant_path(current_user)%></li>
+              <% end %>
+            
+            <% else %>  
+              <li><%= link_to 'Login', login_path%></li>
+              <li><%= link_to 'Log in with Facebook!', '/auth/facebook'%></li>
+              <li><%= link_to 'Signup', signup_path%></li>
+            <% end %>        
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="row add-margin">
+      
+    </div>
     <%= yield %>
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>
 </html>
+
+          
+        
+
+
