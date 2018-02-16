@@ -24,7 +24,7 @@
               <p class="navbar-text navbar-right">Hello <%= current_user.username %>!</p>
               <li><%= link_to 'Logout', logout_path%></li>
               <li><%= link_to "Your Profile", user_path(current_user)%></li>
-              <li><%= link_to "Restaurants", restaurants_path%></li>
+              <li><%= link_to "Restaurants", restaurants_path, { :id=>"list_restaurants" }%></li>
               <% if params[:user_id] && is_admin? %>
                 <li><%= link_to "Add Restaurant", new_user_restaurant_path(current_user)%></li>
               <% end %>
