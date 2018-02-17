@@ -11,37 +11,14 @@
   </head>
 
   <body>
-    
-    <div class="page-header">
-      <h1>Better Meals</h1>
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-
-          <ul class="nav nav-pills">
-            <li class="active"><%= link_to "Home", root_path %></li>
-            
-            <% if logged_in? %>
-              <p class="navbar-text navbar-right">Hello <%= current_user.username %>!</p>
-              <li><%= link_to 'Logout', logout_path%></li>
-              <li><%= link_to "Your Profile", user_path(current_user)%></li>
-              <li><%= link_to "Restaurants", restaurants_path, { :id=>"list_restaurants" }%></li>
-              <% if params[:user_id] && is_admin? %>
-                <li><%= link_to "Add Restaurant", new_user_restaurant_path(current_user)%></li>
-              <% end %>
-            
-            <% else %>  
-              <li><%= link_to 'Login', login_path%></li>
-              <li><%= link_to 'Log in with Facebook!', '/auth/facebook'%></li>
-              <li><%= link_to 'Signup', signup_path%></li>
-            <% end %>        
-          </ul>
+    <div class="container-fluid">
+      <%= render 'layouts/header' %>
+      <div class="container">
+        <div id="restaurant-container">
+          <%= yield %>
         </div>
-      </nav>
+      </div>
     </div>
-    <div class="row add-margin">
-      
-    </div>
-    <%= yield %>
     
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>

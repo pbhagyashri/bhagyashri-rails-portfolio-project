@@ -1,0 +1,27 @@
+<div class="page-header">
+  <h1>Better Meals</h1>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      
+      <ul class="nav nav-pills">
+        <li><%= link_to "Home", root_path, {:id=>"home-button"} %></li>
+        
+        <% if logged_in? %>
+          <p class="navbar-text navbar-right">Hello <%= current_user.username %>!</p>
+          <li><%= link_to 'Logout', logout_path%></li>
+          <li><%= link_to "Your Profile", user_path(current_user)%></li>
+          <li><a id="list_restaurants">Restaurants</a></li>
+          <% if params[:user_id] && is_admin? %>
+            <li><%= link_to "Add Restaurant", new_user_restaurant_path(current_user)%></li>
+          <% end %>
+        
+        <% else %>  
+          <li><%= link_to 'Login', login_path%></li>
+          <li><%= link_to 'Log in with Facebook!', '/auth/facebook'%></li>
+          <li><%= link_to 'Signup', signup_path%></li>
+        <% end %>        
+      </ul>
+    </div>
+        
+  </nav>
+</div>
