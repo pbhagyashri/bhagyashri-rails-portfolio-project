@@ -15,14 +15,20 @@
       ])
 
       Review.create([
-        {taste_rating: 5, health_rating: 3, cleanliness_rating: 5, description: "Amazingly tasty food with a great outdoor view", date: Date.today, restaurant_id: 1, user_id: 1},
-        {taste_rating: 5, health_rating: 4, cleanliness_rating: 3, description: "Authentic and great tasting Middle Eastern Food", date: Date.today, restaurant_id: 2, user_id: 1},
+        {taste_rating: 5, health_rating: 3, cleanliness_rating: 5, description: "Amazingly tasty food with a great outdoor view", date: Date.today, restaurant_id: 1, user_id: 5},
+        {taste_rating: 5, health_rating: 4, cleanliness_rating: 3, description: "Authentic and great tasting Middle Eastern Food", date: Date.today, restaurant_id: 2, user_id: 3},
         {taste_rating: 5, health_rating: 4, cleanliness_rating: 5, description: "French food at it's best, if you want it fast!!", date: Date.today, restaurant_id: 3, user_id: 2},
-        {taste_rating: 2, health_rating: 1, cleanliness_rating: 2, description: "Worst Mexican Food in the world", date: Date.today, restaurant_id: 4, user_id: 2},
-        {taste_rating: 4, health_rating: 1, cleanliness_rating: 2, description: "Nice food but, eat at your own risk", date: Date.today, restaurant_id: 5, user_id: 2}
+        {taste_rating: 2, health_rating: 1, cleanliness_rating: 2, description: "Best Mexican Food in the world", date: Date.today, restaurant_id: 4, user_id: 3},
+        {taste_rating: 4, health_rating: 1, cleanliness_rating: 2, description: "Nice food!!", date: Date.today, restaurant_id: 5, user_id: 2},
+        {taste_rating: 4, health_rating: 4, cleanliness_rating: 5, description: "Anyone can cook!!", date: Date.today, restaurant_id: 1, user_id: 4},
+        {taste_rating: 4, health_rating: 4, cleanliness_rating: 5, description: "Awesome Restaurant!!", date: Date.today, user_id: 1}
+        
         ])
 
       User.create([
         {username: "Micky Mouse", email: "micky@disney.com", password: "cheese"},
-        {username: "Minney Mouse", email: "minney@disney.com", password: "polkadots"}
+        {username: "Minney Mouse", email: "minney@disney.com", password: "polkadots", admin: true},
+        {username: "Pluto", email: "pluto@disney.com", password: "bones", admin: true},
+        {username: "AntonEgo", email: "antonego@pixar.com", password: "bones"},
+        {username: "Rami", email: "rami@pixar.com", password: "bones", admin: true}
         ])

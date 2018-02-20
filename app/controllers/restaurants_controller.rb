@@ -6,11 +6,11 @@ class RestaurantsController < ApplicationController
   include RestaurantHelper
 
   def index
+    # @restaurants = []
     # if params[:user_id]
     #   @user = User.find(params[:user_id])
     #   @restaurants = @user.restaurants
-      #render json: @restaurants, status: 200
-    #else
+    # else
       @restaurants = Restaurant.all
       respond_to do |f|
         f.html
@@ -22,6 +22,10 @@ class RestaurantsController < ApplicationController
   def new
     @restaurant = Restaurant.new
     @review = @restaurant.reviews.build
+    respond_to do |f|
+      f.json {render json: @review}
+      f.html
+    end
   end
 
   def create
@@ -43,6 +47,12 @@ class RestaurantsController < ApplicationController
 
   def show
     @review = Review.new
+    
+    respond_to do |f|
+      f.json {render json: @restaurant}
+        
+      f.html
+    end
   end
 
   def edit
@@ -70,7 +80,7 @@ class RestaurantsController < ApplicationController
     end
   end
 
-  private
+  protected
 
   def restaurant_params
     params.require(:restaurant).permit(:name, :location, :cuisine, :reviews_attributes => [:taste_rating, :health_rating, :cleanliness_rating, :description, :date, :status, :user_id, :restaurant_id])

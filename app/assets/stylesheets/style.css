@@ -21,25 +21,39 @@ body {
   margin-bottom: 15px;
  }
  
- #rest_div {
+ .rest_div {
   background-color:	#dddfd4;
-  padding: 20px;
-  margin-bottom: 10px;
+  padding: 20px 20px 0px 20px;
  }
- 
- 
- #rest_div h2 {
+
+ .rest_div h2, #reviews_div h3, .owner_div h3 {
+  font-weight: bold;
   color: #3fb0ac;
  }
- #rest_div h4 {
+ 
+ .rest_div h4 {
   color: #173e43;
+ }
+ 
+ .owner_div {
+  background-color:	#dddfd4;
+  padding: 5px 0px 5px 18px;
+ }
+ 
+ #reviews_div {
+  background-color: #b3c2bf;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 3px 7px #e6e6e8;
+ }
+ 
+  #reviews_div h3 {
+  color: #f2efe8;
  }
 
 nav {
-
  padding: 10px, 30px, 10px, 10px;
  font-size: 1.2em;
- 
 }
 
 nav li {

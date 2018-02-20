@@ -1,12 +1,12 @@
-
+<div class="form-group">
   <p>
     <%= r.label :taste_rating %>
-    <%= r.select(:taste_rating, options_for_select((1..5), {:selected => @review.taste_rating}), :prompt => "Select") %>
+    <%=r.select(:taste_rating, options_for_select((1..5), {:selected => @review.taste_rating}), :prompt => "Select")%>
   </p>
-
+</div>
   <p>
     <%= r.label :health_rating %>
-    <%= r.select(:health_rating, options_for_select((1..5), {:selected => @review.health_rating}), :prompt => "Select") %>
+    <%= r.select(:health_rating, options_for_select((1..5), {:selected => @review.health_rating}), :prompt => "Select")%>
   </p>
 
   <p>

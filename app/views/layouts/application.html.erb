@@ -14,10 +14,12 @@
     <div class="container-fluid">
       <%= render 'layouts/header' %>
       <div class="container">
-        <div id="restaurant-container">
+      <div class="col-lg-2"></div>
+        <div class="col-lg-8" id="restaurant-container">
           <%= yield %>
-        </div>
-      </div>
+        </div> <!--restaurant-container-->
+      <div class="col-lg-2"></div>
+      </div> <!--container-->
     </div>
     
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
