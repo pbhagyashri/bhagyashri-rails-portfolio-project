@@ -27,8 +27,9 @@ const bindClickHandlers = () => {
         $('#restaurant-container').append(`<div class="owner_div"><h3>Owner: ${findOwner(restaurant)}</h3></div>`)
         $("#restaurant-container").append(cookRestaurant.bakeReviews())
         
-        
-        
+        let users = restaurant.users;
+        let reviews = restaurant.reviews
+
         
       })//forEach
     });//get
@@ -157,15 +158,18 @@ function findOwner(restaurant) {
   return owner
 }
 
-function findReviewer(review) {
-  var reviewer = ""
-  
-  restaurant.users.forEach(user => {
-    if(user.id === review.user_id) {
-      reviewer = user.username;
-    }
-  })
-  return reviewer
-}
 
+function findReviewer(reviews, users) {
+  var reviewers = []
+  if(reviews) {
+    $.each(reviews, function(i, item) {
+      if(reviews[i].user_id === users[i].id) {
+        reviewers.push(users[i].username)
+        //console.log(users[i].username)
+      }
+    })
+  }
+
+  return reviewers
+}
 
