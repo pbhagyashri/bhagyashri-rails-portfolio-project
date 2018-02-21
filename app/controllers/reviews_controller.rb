@@ -11,7 +11,9 @@ class ReviewsController < ApplicationController
       @review = @restaurant.reviews.build(review_params)
       @review.date = Date.today
       @restaurant.save
-      redirect_to root_path
+    
+      render json: @review
+
     end
   end
 

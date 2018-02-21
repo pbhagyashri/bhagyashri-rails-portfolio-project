@@ -23,14 +23,14 @@ const bindClickHandlers = () => {
         let seasoneRestaurant = cookRestaurant.addSpices()
         
         $('#restaurant-container').append(seasoneRestaurant)
-      
+        
+        this.users = restaurant.users;
+        this.reviews = restaurant.reviews
+        
         $('#restaurant-container').append(`<div class="owner_div"><h3>Owner: ${findOwner(restaurant)}</h3></div>`)
+        
         $("#restaurant-container").append(cookRestaurant.bakeReviews())
-        
-        let users = restaurant.users;
-        let reviews = restaurant.reviews
-
-        
+    
       })//forEach
     });//get
     
@@ -58,13 +58,28 @@ const bindClickHandlers = () => {
 
       $("#learn-more").css("visibility", "hidden");
     })//get
-    
   })//onclick
   
   $("#new_review").on("submit", function(event) {
+    
+    history.pushState(null, null, `/restaurants`)
+    
+    
+    $.ajax({
+      type: "POST",
+      url: this.action,
+      data: $(this).serialize(),
+      success: function(review){
+
+        var newReview = new Review(review);
+        
+        $("#restaurant-container").append(newReview.formatReview())
+        
+      }
+    })
+    
     event.preventDefault();
     
-
   })
   
   
@@ -108,9 +123,8 @@ Restaurant.prototype.bakeReviews = function () {
   
   let reviews = this.reviews
   let reviewsBatch = ''
-  
+
   reviews.forEach((review) => {
-  
     let reviewloaf = `
       <div id="reviews_div">
         <h3>Reviews</h3>
@@ -120,7 +134,7 @@ Restaurant.prototype.bakeReviews = function () {
         <h4><b>Discription: ${review.description}</b></h4>
       </div>
     `
-    reviewsBatch += reviewloaf
+    return reviewsBatch += reviewloaf
   })
   
   return reviewsBatch
@@ -133,21 +147,6 @@ function reloadHomePage() {
 }
 
 
-//recursive function
-
-// function multiplyBy10(number) {   
-//   console.log(number * 10);
-// }
-
-// function multiplesOf10(limit) {
-//   for(i = 1; i <= limit; i++) {
-//     multiplyBy10(i)
-//   }
-   
-// }
-// undefined
-// multiplesOf10(4)
-
 function findOwner(restaurant) {
   var owner = ""
   restaurant.users.forEach(user => {
@@ -158,18 +157,40 @@ function findOwner(restaurant) {
   return owner
 }
 
-
 function findReviewer(reviews, users) {
-  var reviewers = []
-  if(reviews) {
-    $.each(reviews, function(i, item) {
-      if(reviews[i].user_id === users[i].id) {
-        reviewers.push(users[i].username)
-        //console.log(users[i].username)
-      }
-    })
-  }
-
-  return reviewers
+  let username = []
+  $.each(reviews, function(i, item) {
+          
+    if(reviews[i].user_id === users[i].id) {
+      // var divs = $('#restaurant-container #reviews_div')
+      // divs[i].append(users[i].username
+      username.push(users[i].username)
+    }
+          
+  })
 }
 
+function Review(review) {
+  this.id = review.id
+  this.health_rating = review.health_rating
+  this.taste_rating = review.taste_rating
+  this.cleanliness_rating = review.cleanliness_rating
+  this.description = review.description
+} //constructor
+
+
+
+Review.prototype.formatReview = function() {
+  
+  let newReview = `
+    <div id="reviews_div">
+      <h3>Reviews</h3>
+      <h4><b>Taste Rating: ${this.taste_rating}</b></h4>
+      <h4><b>Health Rating: ${this.health_rating}</b></h4>
+      <h4><b>Cleanliness Rating: ${this.cleanliness_rating}</b></h4>
+      <h4><b>Discription: ${this.description}</b></h4>
+    </div>
+  `
+  return newReview
+
+} // prototype

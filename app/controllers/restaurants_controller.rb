@@ -12,6 +12,7 @@ class RestaurantsController < ApplicationController
     #   @restaurants = @user.restaurants
     # else
       @restaurants = Restaurant.all
+
       respond_to do |f|
         f.html
         f.json {render json: @restaurants}
