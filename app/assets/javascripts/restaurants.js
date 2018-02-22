@@ -42,7 +42,8 @@ const bindClickHandlers = () => {
     
   })//onClick
   
-  //Hijack learnmore link
+  /////////Hijack learn-more link////////////
+  
   $(document).on("click", "#learn-more", (event) => {
     
     event.preventDefault();
@@ -199,11 +200,9 @@ Review.prototype.formatReview = function() {
 
 //////////////////////// User Profile //////////////////
 
-
 const userClickHandlers = () => {
   $("#user-profile").on("click", function(event) {
   event.preventDefault();
-  
   
   $("#restaurant-container").html('')
   
@@ -219,9 +218,6 @@ const userClickHandlers = () => {
     
     })
   })
-  
-  
-  
 })
   
 }

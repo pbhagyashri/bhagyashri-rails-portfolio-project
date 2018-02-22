@@ -11,11 +11,11 @@
   <h3>Location: <%= @restaurant.location %></h3><br>
 </div>
 <div id="reviews_div">
-  <% if !is_admin? %>
-    <h2>Write a Review!</h2>
-    <%= form_for(@review) do |f| %>
-    <%= render partial: "fields_for_reviews", locals: {r: f} %>
-    <%= f.submit value="Submit Review", {:id => "submit-review-button", :data => { :'id' => @restaurant.id }} %>
-    <% end %>
+
+  <h2>Write a Review!</h2>
+  <%= form_for(@review) do |f| %>
+  <%= render partial: "fields_for_reviews", locals: {r: f} %>
+  <%= f.submit value="Submit Review", {:id => "submit-review-button", :data => { :'id' => @restaurant.id }} %>
   <% end %>
+
 </div>
