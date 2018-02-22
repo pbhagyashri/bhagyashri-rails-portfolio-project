@@ -3,7 +3,7 @@ let adminUser = ""
 $(document).ready(function() {
  
   bindClickHandlers()
-  reloadHomePage()
+  userClickHandlers()
 
 });
 
@@ -14,12 +14,15 @@ const bindClickHandlers = () => {
     event.preventDefault();
     
     history.pushState(null, null, "/restaurants")
+    
     $.get('/restaurants.json').done((restaurants) => {
-        
+      
       $("#restaurant-container").html('')
+      
       restaurants.forEach( function (restaurant) {
         
         let cookRestaurant = new Restaurant(restaurant)
+
         let seasoneRestaurant = cookRestaurant.addSpices()
         
         $('#restaurant-container').append(seasoneRestaurant)
@@ -60,26 +63,26 @@ const bindClickHandlers = () => {
     })//get
   })//onclick
   
+  // $("#submit-review-button").on("click", function(event) {
+  //     event.preventDefault();
+  // })
+  
   $("#new_review").on("submit", function(event) {
-    
-    history.pushState(null, null, `/restaurants`)
-    
+    event.preventDefault();
     
     $.ajax({
       type: "POST",
       url: this.action,
       data: $(this).serialize(),
       success: function(review){
-
+        
         var newReview = new Review(review);
         
         $("#restaurant-container").append(newReview.formatReview())
         
       }
-    })
-    
-    event.preventDefault();
-    
+    }), history.pushState(null, null, `/`);
+  
   })
   
   
@@ -91,6 +94,7 @@ function Restaurant(restaurant) {
   this.location = restaurant.location
   this.cuisine = restaurant.cuisine
   this.reviews = restaurant.reviews
+  this.users = restaurant.users
 } //constructor
 
 Restaurant.prototype.addSpices = function() {
@@ -140,13 +144,6 @@ Restaurant.prototype.bakeReviews = function () {
   return reviewsBatch
 }
 
-function reloadHomePage() {
-  $("#home-button").on("click", () => {
-    location.reload();
-  });
-}
-
-
 function findOwner(restaurant) {
   var owner = ""
   restaurant.users.forEach(user => {
@@ -178,8 +175,6 @@ function Review(review) {
   this.description = review.description
 } //constructor
 
-
-
 Review.prototype.formatReview = function() {
   
   let newReview = `
@@ -194,3 +189,23 @@ Review.prototype.formatReview = function() {
   return newReview
 
 } // prototype
+
+//////////////////////// User Profile //////////////////
+
+
+const userClickHandlers = () => {
+  $("#user-profile").on("click", function(event) {
+  event.preventDefault();
+  
+  console.log(this.href)
+  
+  $.get(this.href).done(user => {
+    debugger
+  })
+  
+  
+  
+})
+  
+}
+
