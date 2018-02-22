@@ -1,4 +1,3 @@
-let adminUser = ""
 
 $(document).ready(function() {
  
@@ -9,67 +8,75 @@ $(document).ready(function() {
 
 const bindClickHandlers = () => {
   
+  // Hijack restaurants button to send ajax request
   $('#list_restaurants').on('click', function(event) {
     
     event.preventDefault();
-    
     history.pushState(null, null, "/restaurants")
     
+    // send a get request to index action in restaurantsController to load all restaurants.
     $.get('/restaurants.json').done((restaurants) => {
-      
+      //clear out the contents of restaurant-container div
       $("#restaurant-container").html('')
       
+      //loop over the restaurants loaded by get ajax request
       restaurants.forEach( function (restaurant) {
         
-        let cookRestaurant = new Restaurant(restaurant)
-
-        let seasoneRestaurant = cookRestaurant.addSpices()
+        //create a new restaurant instance from constructor.
+        let newRestaurantInstance = new Restaurant(restaurant)
         
-        $('#restaurant-container').append(seasoneRestaurant)
+        //add fromating by calling prototype formatRestaurant
+        let restaurantHtml = newRestaurantInstance.formatRestaurant()
         
-        this.users = restaurant.users;
-        this.reviews = restaurant.reviews
+        //append formatted restaurants to restaurant-container div
+        $('#restaurant-container').append(restaurantHtml)
+        
+        users = restaurant.users;
+        reviews = restaurant.reviews
         
         $('#restaurant-container').append(`<div class="owner_div"><h3>Owner: ${findOwner(restaurant)}</h3></div>`)
-        
-        $("#restaurant-container").append(cookRestaurant.bakeReviews())
+        //$("#restaurant-container").append(newRestaurantInstance.writeReview())
     
       })//forEach
     });//get
     
   })//onClick
   
-
+  //Hijack learnmore link
   $(document).on("click", "#learn-more", (event) => {
     
     event.preventDefault();
-  
     let id = event.currentTarget.dataset.id;
     history.pushState(null, null, `/restaurants/${id}`)
     
+    // send ajax get request to show route of restaurantsController
     $.get(`/restaurants/${id}.json`).done((restaurant) => {
       
       $("#restaurant-container").html('')
       
+      //create a new restaurant instance from constructor.
       let newRestaurant = new Restaurant(restaurant)
-      let newRestaurantFormat = newRestaurant.writeReview()
+      
+      //add fromating by calling prototype formatRestaurant
+      let newRestaurantFormat = newRestaurant.formatRestaurant()
+      
+      //append formatted restaurants to restaurant-container div
       $('#restaurant-container').append(newRestaurantFormat)
-       
+       //find and append owner
       $('#restaurant-container').append(`<div class="owner_div"><h3>Owner: ${findOwner(restaurant)}</h3></div>`)
-    
-      $("#restaurant-container").append(newRestaurant.bakeReviews())
-
+      
+      //Append formatted reviews by calling formatReviews prototype function
+      $("#restaurant-container").append(newRestaurant.formatReviews())
+      
+      //hide learn-more button
       $("#learn-more").css("visibility", "hidden");
     })//get
   })//onclick
   
-  // $("#submit-review-button").on("click", function(event) {
-  //     event.preventDefault();
-  // })
-  
+  // Hijack new-reviews form
   $("#new_review").on("submit", function(event) {
     event.preventDefault();
-    
+    //send ajax post request to create action of reviewsController
     $.ajax({
       type: "POST",
       url: this.action,
@@ -79,14 +86,12 @@ const bindClickHandlers = () => {
         var newReview = new Review(review);
         
         $("#restaurant-container").append(newReview.formatReview())
-        
-      }
-    }), history.pushState(null, null, `/`);
-  
-  })
-  
-  
+      }//success
+    })//ajax
+  })//new_review
 }//bindClickHandler
+
+///////////////CONSTRUCTOR///////////////////////
 
 function Restaurant(restaurant) {
   this.id = restaurant.id
@@ -97,21 +102,23 @@ function Restaurant(restaurant) {
   this.users = restaurant.users
 } //constructor
 
-Restaurant.prototype.addSpices = function() {
-  let seasoneRestaurant = `
+////////////// PROTOTYPE /////////////
+
+Restaurant.prototype.formatRestaurant = function() {
+  let restaurantHtml = `
     <div class="rest_div">
       <h2>${this.name}</h2>
       <h4><b>Location:</b> ${this.location} </h4>
       <h4><b>cuisine:</b> ${this.cuisine} </h4>
       <a id="learn-more" data-id="${this.id}" href="/restaurants/${this.id}">Learn More</a>
-      
+      <a id="write-review" data-id="${this.id}" href="/restaurants/${this.id}">Write a Review</a>
     </div>
   `
-  return seasoneRestaurant
+  return restaurantHtml
 } // prototype
 
 Restaurant.prototype.writeReview = function() {
-  let seasoneRestaurant = `
+  let restaurantHtml = `
     <div class="rest_div">
       <h2>${this.name}</h2>
       <h4><b>Location:</b> ${this.location} </h4>
@@ -120,10 +127,10 @@ Restaurant.prototype.writeReview = function() {
       <a id="learn-more" data-id="${this.id}" href="/restaurants/${this.id}">Learn More</a>
     </div>
   `
-  return seasoneRestaurant
+  return restaurantHtml
 } // prototype
 
-Restaurant.prototype.bakeReviews = function () {
+Restaurant.prototype.formatReviews = function () {
   
   let reviews = this.reviews
   let reviewsBatch = ''
@@ -197,10 +204,20 @@ const userClickHandlers = () => {
   $("#user-profile").on("click", function(event) {
   event.preventDefault();
   
-  console.log(this.href)
+  
+  $("#restaurant-container").html('')
   
   $.get(this.href).done(user => {
-    debugger
+    
+    history.pushState(null, null, `/users/${user.id}`)
+    
+    user.restaurants.forEach(restaurant => {
+      let newRestaurant = new Restaurant(restaurant)
+      let formatedRestaurant = newRestaurant.formatRestaurant()
+      
+      $("#restaurant-container").append(formatRestaurant)
+    
+    })
   })
   
   

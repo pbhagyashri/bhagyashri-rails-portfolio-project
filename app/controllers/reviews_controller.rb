@@ -14,7 +14,6 @@ class ReviewsController < ApplicationController
     
       render json: @review
     else
-      binding.pry
       render `restaurants/#{@restaurant.id}`
     end
   end
