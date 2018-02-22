@@ -35,7 +35,7 @@ const bindClickHandlers = () => {
         reviews = restaurant.reviews
         
         $('#restaurant-container').append(`<div class="owner_div"><h3>Owner: ${findOwner(restaurant)}</h3></div>`)
-        //$("#restaurant-container").append(newRestaurantInstance.writeReview())
+        $("#restaurant-container").append(newRestaurantInstance.formatReviews())
     
       })//forEach
     });//get
@@ -113,19 +113,6 @@ Restaurant.prototype.formatRestaurant = function() {
       <h4><b>cuisine:</b> ${this.cuisine} </h4>
       <a id="learn-more" data-id="${this.id}" href="/restaurants/${this.id}">Learn More</a>
       <a id="write-review" data-id="${this.id}" href="/restaurants/${this.id}">Write a Review</a>
-    </div>
-  `
-  return restaurantHtml
-} // prototype
-
-Restaurant.prototype.writeReview = function() {
-  let restaurantHtml = `
-    <div class="rest_div">
-      <h2>${this.name}</h2>
-      <h4><b>Location:</b> ${this.location} </h4>
-      <h4><b>cuisine:</b> ${this.cuisine} </h4>
-      <a id="write-review" data-id="${this.id}" href="/restaurants/${this.id}">Write a Review</a>
-      <a id="learn-more" data-id="${this.id}" href="/restaurants/${this.id}">Learn More</a>
     </div>
   `
   return restaurantHtml
