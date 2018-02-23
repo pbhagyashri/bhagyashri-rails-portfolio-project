@@ -30,18 +30,16 @@ const bindClickHandlers = () => {
         
         //append formatted restaurants to restaurant-container div
         $('#restaurant-container').append(restaurantHtml)
-        
-        $('#restaurant-container').append(`<div class="owner_div"><h3>Owner: ${findOwner(restaurant)}</h3></div>`)
-        
+  
         if(!restaurant.reviews.length !== 0){
           $("#restaurant-container").append(newRestaurantInstance.writeReview())
         }
       })//forEach
     });//get
     
-  })//onClick
+  })//onClick Index Page
   
-  /////////Hijack learn-more link////////////
+  /////////Hijack learn-more link Show Page////////////
   
   $(document).on("click", "#learn-more", (event) => {
     
@@ -58,20 +56,25 @@ const bindClickHandlers = () => {
       let newRestaurant = new Restaurant(restaurant)
       
       //add fromating by calling prototype formatRestaurant
-      let newRestaurantFormat = newRestaurant.formatRestaurant()
+      let newRestaurantFormat = newRestaurant.formatRestaurantShow()
       
       //append formatted restaurants to restaurant-container div
       $('#restaurant-container').append(newRestaurantFormat)
-       //find and append owner
-      $('#restaurant-container').append(`<div class="owner_div"><h3>Owner: ${findOwner(restaurant)}</h3></div>`)
       
       //Append formatted reviews by calling formatReviews prototype function
       $("#restaurant-container").append(newRestaurant.formatReviews())
       
       //hide learn-more button
-      $("#learn-more").css("visibility", "hidden");
+      //$("#learn-more").css("visibility", "hidden");
     })//get
-  })//onclick
+  })//onclick Show Page
+  
+  $(document).on("click", '.next_restaurant', function(){
+    let id = this.dataset.id
+    $.get("restaurants/${id}/next").done(restaurant => {
+      
+    })
+  })//next_restaurant button
   
   // Hijack new-reviews form
   $("#new_review").on("submit", function(event) {
@@ -110,12 +113,30 @@ Restaurant.prototype.formatRestaurant = function() {
       <h2>${this.name}</h2>
       <h4><b>Location:</b> ${this.location} </h4>
       <h4><b>cuisine:</b> ${this.cuisine} </h4>
+      <h3><b>Owner:</b> ${this.users[0].username}</h3>
       <a id="learn-more" data-id="${this.id}" href="/restaurants/${this.id}">Learn More</a>
       <a id="write-review" data-id="${this.id}" href="/restaurants/${this.id}">Write a Review</a>
     </div>
   `
   return restaurantHtml
 } // prototype
+
+Restaurant.prototype.formatRestaurantShow = function() {
+  let restaurantHtml = `
+    <div class="rest_div">
+      <h2>${this.name}</h2>
+      <h4><b>Location:</b> ${this.location} </h4>
+      <h4><b>cuisine:</b> ${this.cuisine} </h4>
+      <h3><b>Owner:</b> ${this.users[0].username}</h3>
+      <a id="learn-more" data-id="${this.id}" href="/restaurants/${this.id}">Learn More</a>
+      <a id="write-review" data-id="${this.id}" href="/restaurants/${this.id}">Write a Review</a><br><br>
+      <button class="next_restaurant" data-id="${this.id}">Next</button>
+    </div>
+  `
+  return restaurantHtml
+} // prototype
+
+
 
 Restaurant.prototype.writeReview = function() {
   let review = this.reviews[this.reviews.length - 1]
@@ -124,7 +145,6 @@ Restaurant.prototype.writeReview = function() {
     let reviewHtml = `
       <div id="reviews_div">
         <h3>Reviews</h3>
-
         <h4><b>Taste Rating: ${review.taste_rating}</b></h4>
         <h4><b>Health Rating: ${review.health_rating}</b></h4>
         <h4><b>Cleanliness Rating: ${review.cleanliness_rating}</b></h4>
@@ -145,7 +165,6 @@ Restaurant.prototype.formatReviews = function () {
     let reviewloaf = `
       <div id="reviews_div">
         <h3>Reviews</h3>
-        
         <h4><b>Taste Rating: ${review.taste_rating}</b></h4>
         <h4><b>Health Rating: ${review.health_rating}</b></h4>
         <h4><b>Cleanliness Rating: ${review.cleanliness_rating}</b></h4>
@@ -198,10 +217,6 @@ const userClickHandlers = () => {
   $("#user-profile").on("click", function(event) {
   event.preventDefault();
 
-  let url = event.currentTarget.attributes.href.nodeValue
-  
-  //history.pushState(null, null, `${url}`)
-  
   $("#restaurant-container").html('')
   
   $.get(this.href).done(user => {
@@ -218,7 +233,6 @@ const userClickHandlers = () => {
         if(!restaurant.reviews.length !== 0){
           $("#restaurant-container").append(createRestaurant.writeReview())
         }
-        
       })//forEach
       
     });//get users

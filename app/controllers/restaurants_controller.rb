@@ -6,20 +6,19 @@ class RestaurantsController < ApplicationController
   include RestaurantHelper
 
   def index
+    
     if params[:user_id]
       user = User.find(params[:user_id])
       @restaurants = user.restaurants
-      
       render json: @restaurants
-      
     else
       @restaurants = Restaurant.all
-  
       respond_to do |f|
         f.html
         f.json {render json: @restaurants}
       end
     end
+    
   end
 
   def new
@@ -53,7 +52,6 @@ class RestaurantsController < ApplicationController
     
     respond_to do |f|
       f.json {render json: @restaurant}
-        
       f.html
     end
   end
@@ -65,13 +63,11 @@ class RestaurantsController < ApplicationController
   def update
 
     if is_admin? && restuarant_owner(@restaurant)
-
       if @restaurant.update(restaurant_params)
         redirect_to restaurant_path(@restaurant)
       else
         render :new
       end
-
     end
 
   end
