@@ -21,7 +21,7 @@ const bindClickHandlers = () => {
       
       //loop over the restaurants loaded by get ajax request
       restaurants.forEach( function (restaurant) {
-        
+      
         //create a new restaurant instance from constructor.
         let newRestaurantInstance = new Restaurant(restaurant)
         
@@ -31,12 +31,11 @@ const bindClickHandlers = () => {
         //append formatted restaurants to restaurant-container div
         $('#restaurant-container').append(restaurantHtml)
         
-        users = restaurant.users;
-        reviews = restaurant.reviews
-        
         $('#restaurant-container').append(`<div class="owner_div"><h3>Owner: ${findOwner(restaurant)}</h3></div>`)
-        $("#restaurant-container").append(newRestaurantInstance.formatReviews())
-    
+        
+        if(!restaurant.reviews.length !== 0){
+          $("#restaurant-container").append(newRestaurantInstance.writeReview())
+        }
       })//forEach
     });//get
     
@@ -118,15 +117,35 @@ Restaurant.prototype.formatRestaurant = function() {
   return restaurantHtml
 } // prototype
 
+Restaurant.prototype.writeReview = function() {
+  let review = this.reviews[this.reviews.length - 1]
+  if(review) {
+  
+    let reviewHtml = `
+      <div id="reviews_div">
+        <h3>Reviews</h3>
+
+        <h4><b>Taste Rating: ${review.taste_rating}</b></h4>
+        <h4><b>Health Rating: ${review.health_rating}</b></h4>
+        <h4><b>Cleanliness Rating: ${review.cleanliness_rating}</b></h4>
+        <h4><b>Discription: ${review.description}</b></h4>
+      </div>
+    `
+    return reviewHtml
+  }  
+} // prototype
+
 Restaurant.prototype.formatReviews = function () {
   
   let reviews = this.reviews
   let reviewsBatch = ''
 
   reviews.forEach((review) => {
+    
     let reviewloaf = `
       <div id="reviews_div">
         <h3>Reviews</h3>
+        
         <h4><b>Taste Rating: ${review.taste_rating}</b></h4>
         <h4><b>Health Rating: ${review.health_rating}</b></h4>
         <h4><b>Cleanliness Rating: ${review.cleanliness_rating}</b></h4>
@@ -149,25 +168,13 @@ function findOwner(restaurant) {
   return owner
 }
 
-function findReviewer(reviews, users) {
-  let username = []
-  $.each(reviews, function(i, item) {
-          
-    if(reviews[i].user_id === users[i].id) {
-      // var divs = $('#restaurant-container #reviews_div')
-      // divs[i].append(users[i].username
-      username.push(users[i].username)
-    }
-          
-  })
-}
-
 function Review(review) {
   this.id = review.id
   this.health_rating = review.health_rating
   this.taste_rating = review.taste_rating
   this.cleanliness_rating = review.cleanliness_rating
   this.description = review.description
+  this.user = review.user
 } //constructor
 
 Review.prototype.formatReview = function() {
@@ -190,22 +197,32 @@ Review.prototype.formatReview = function() {
 const userClickHandlers = () => {
   $("#user-profile").on("click", function(event) {
   event.preventDefault();
+
+  let url = event.currentTarget.attributes.href.nodeValue
+  
+  //history.pushState(null, null, `${url}`)
   
   $("#restaurant-container").html('')
   
   $.get(this.href).done(user => {
-    
     history.pushState(null, null, `/users/${user.id}`)
-    
-    user.restaurants.forEach(restaurant => {
-      let newRestaurant = new Restaurant(restaurant)
-      let formatedRestaurant = newRestaurant.formatRestaurant()
+    $("#restaurant-container").html("")
+    $.get(`/users/${user.id}/restaurants.json`).done(res => {
       
-      $("#restaurant-container").append(formatRestaurant)
-    
-    })
-  })
-})
-  
-}
+      res.forEach( function (restaurant) {
+       
+        var createRestaurant = new Restaurant(restaurant)
+        var formatRes = createRestaurant.formatRestaurant()
+        $("#restaurant-container").append(formatRes)
+        
+        if(!restaurant.reviews.length !== 0){
+          $("#restaurant-container").append(createRestaurant.writeReview())
+        }
+        
+      })//forEach
+      
+    });//get users
+  })//.done
+  })// on click
+} //userClickHandlers
 
