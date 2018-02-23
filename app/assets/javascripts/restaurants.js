@@ -70,8 +70,13 @@ const bindClickHandlers = () => {
   })//onclick Show Page
   
   $(document).on("click", '.next_restaurant', function(){
+    $('#restaurant-container').html("")
     let id = this.dataset.id
-    $.get("restaurants/${id}/next").done(restaurant => {
+    $.get(`/restaurants/${id}/next`).done(restaurant => {
+      let buildRestaurant = new Restaurant(restaurant)
+      let restaurantHtml = buildRestaurant.formatRestaurantShow()
+      $('#restaurant-container').append(restaurantHtml)
+      $('#restaurant-container').append(buildRestaurant.formatReviews())
       
     })
   })//next_restaurant button
@@ -85,9 +90,7 @@ const bindClickHandlers = () => {
       url: this.action,
       data: $(this).serialize(),
       success: function(review){
-        
         var newReview = new Review(review);
-        
         $("#restaurant-container").append(newReview.formatReview())
       }//success
     })//ajax
