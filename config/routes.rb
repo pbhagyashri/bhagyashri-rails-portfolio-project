@@ -14,7 +14,9 @@ Rails.application.routes.draw do
   get 'login' => 'sessions#new', as: :login
   post 'sessions' => 'sessions#create', as: :sessions
   get 'logout' => 'sessions#destroy'
-
+  
+  get '/restaurants/:id/next' => 'restaurants#next'
+  
   resources :restaurants, only: [:show] do
     resources :reviews, only: [:index, :show]
   end

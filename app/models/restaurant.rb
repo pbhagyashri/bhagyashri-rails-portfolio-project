@@ -24,6 +24,16 @@ class Restaurant < ApplicationRecord
       restaurant if restaurant.reviews.any?{|review| review.health_rating >= 4}
     end
   end
+  
+  def next
+    restaurant = Restaurant.where("id > ?", id).first
+    
+    if restaurant
+      restaurant
+    else
+      Restaurant.first
+    end
+  end
 
 end
 

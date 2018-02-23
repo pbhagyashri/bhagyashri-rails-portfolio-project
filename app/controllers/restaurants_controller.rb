@@ -1,6 +1,6 @@
 class RestaurantsController < ApplicationController
 
-  before_action :set_restaurant, only: [:edit, :show, :destroy, :update]
+  before_action :set_restaurant, only: [:edit, :show, :destroy, :update, :next]
   before_action :authentication_required, only: [:new, :show, :create, :destroy, :update, :edit]
 
   include RestaurantHelper
@@ -78,7 +78,12 @@ class RestaurantsController < ApplicationController
       redirect_to root_path
     end
   end
-
+  
+  def next
+    @next_restaurant = @restaurant.next
+    render json: @next_restaurant
+  end
+  
   protected
 
   def restaurant_params
