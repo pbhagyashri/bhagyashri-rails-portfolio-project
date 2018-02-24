@@ -10,8 +10,9 @@ const bindClickHandlers = () => {
   
   // Hijack restaurants button to send ajax request
   $('#list_restaurants').on('click', function(event) {
-    
     event.preventDefault();
+    const admin = $('#admin').text();
+    
     history.pushState(null, null, "/restaurants")
     
     // send a get request to index action in restaurantsController to load all restaurants.
@@ -21,19 +22,20 @@ const bindClickHandlers = () => {
       
       //loop over the restaurants loaded by get ajax request
       restaurants.forEach( function (restaurant) {
-      
+        
         //create a new restaurant instance from constructor.
         let newRestaurantInstance = new Restaurant(restaurant)
         
         //add fromating by calling prototype formatRestaurant
-        let restaurantHtml = newRestaurantInstance.formatRestaurant()
+        let restaurantHtml = newRestaurantInstance.formatRestaurant(admin)
         
         //append formatted restaurants to restaurant-container div
         $('#restaurant-container').append(restaurantHtml)
-  
+      
         if(!restaurant.reviews.length !== 0){
           $("#restaurant-container").append(newRestaurantInstance.writeReview())
         }
+      
       })//forEach
     });//get
     
@@ -106,25 +108,27 @@ function Restaurant(restaurant) {
   this.cuisine = restaurant.cuisine
   this.reviews = restaurant.reviews
   this.users = restaurant.users
+  
 } //constructor
 
 ////////////// PROTOTYPE /////////////
 
-Restaurant.prototype.formatRestaurant = function() {
+Restaurant.prototype.formatRestaurant = function(admin) {
+
   let restaurantHtml = `
     <div class="rest_div">
       <h2>${this.name}</h2>
       <h4><b>Location:</b> ${this.location} </h4>
       <h4><b>cuisine:</b> ${this.cuisine} </h4>
-      <h3><b>Owner:</b> ${this.users[0].username}</h3>
+
       <a id="learn-more" data-id="${this.id}" href="/restaurants/${this.id}">Learn More</a>
-      <a id="write-review" data-id="${this.id}" href="/restaurants/${this.id}">Write a Review</a>
+      ${admin === 'true' ? '' : `<a id="write-review" data-id="${this.id}" href="/restaurants/${this.id}">Write a Review</a>`}<br><br>
     </div>
   `
   return restaurantHtml
 } // prototype
 
-Restaurant.prototype.formatRestaurantShow = function() {
+Restaurant.prototype.formatRestaurantShow = function(admin) {
   let restaurantHtml = `
     <div class="rest_div">
       <h2>${this.name}</h2>
@@ -132,7 +136,7 @@ Restaurant.prototype.formatRestaurantShow = function() {
       <h4><b>cuisine:</b> ${this.cuisine} </h4>
       <h3><b>Owner:</b> ${this.users[0].username}</h3>
       <a id="learn-more" data-id="${this.id}" href="/restaurants/${this.id}">Learn More</a>
-      <a id="write-review" data-id="${this.id}" href="/restaurants/${this.id}">Write a Review</a><br><br>
+      ${admin === 'true' ? '' : `<a id="write-review" data-id="${this.id}" href="/restaurants/${this.id}">Write a Review</a>`}<br><br>
       <button class="next_restaurant" data-id="${this.id}">Next</button>
     </div>
   `
@@ -143,8 +147,8 @@ Restaurant.prototype.formatRestaurantShow = function() {
 
 Restaurant.prototype.writeReview = function() {
   let review = this.reviews[this.reviews.length - 1]
-  if(review) {
   
+  if(review) {
     let reviewHtml = `
       <div id="reviews_div">
         <h3>Reviews</h3>
@@ -152,6 +156,7 @@ Restaurant.prototype.writeReview = function() {
         <h4><b>Health Rating: ${review.health_rating}</b></h4>
         <h4><b>Cleanliness Rating: ${review.cleanliness_rating}</b></h4>
         <h4><b>Discription: ${review.description}</b></h4>
+        <h4>Reviewer: ${review.user} </h4>
       </div>
     `
     return reviewHtml
@@ -164,7 +169,7 @@ Restaurant.prototype.formatReviews = function () {
   let reviewsBatch = ''
 
   reviews.forEach((review) => {
-    
+  
     let reviewloaf = `
       <div id="reviews_div">
         <h3>Reviews</h3>
@@ -172,6 +177,7 @@ Restaurant.prototype.formatReviews = function () {
         <h4><b>Health Rating: ${review.health_rating}</b></h4>
         <h4><b>Cleanliness Rating: ${review.cleanliness_rating}</b></h4>
         <h4><b>Discription: ${review.description}</b></h4>
+        <h4>Reviewer: ${review.user} </h4>
       </div>
     `
     return reviewsBatch += reviewloaf
@@ -196,11 +202,11 @@ function Review(review) {
   this.taste_rating = review.taste_rating
   this.cleanliness_rating = review.cleanliness_rating
   this.description = review.description
-  this.user = review.user
+  this.user = review.user.username
 } //constructor
 
 Review.prototype.formatReview = function() {
-  
+
   let newReview = `
     <div id="reviews_div">
       <h3>Reviews</h3>
@@ -208,6 +214,7 @@ Review.prototype.formatReview = function() {
       <h4><b>Health Rating: ${this.health_rating}</b></h4>
       <h4><b>Cleanliness Rating: ${this.cleanliness_rating}</b></h4>
       <h4><b>Discription: ${this.description}</b></h4>
+      <h4><b>Reviewer: ${this.user}</b></h4>
     </div>
   `
   return newReview
