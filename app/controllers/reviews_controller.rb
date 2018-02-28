@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
   include ReviewHelper
 
   def create
-    binding.pry
+   
     @restaurant = Restaurant.find_by(id: params[:review][:restaurant_id])
     @review = @restaurant.reviews.build(review_params)
     @review.date = Date.today
@@ -16,11 +16,15 @@ class ReviewsController < ApplicationController
   end
 
   def edit
-
+    
   end
 
   def update
-    if valid_user?(@review)
+    
+    if !valid_user?(@review)
+      flash[:message] = "Sorry, You can only edit your own review"
+      render :edit
+    else
       if @review.update(review_params)
         redirect_to root_path
       else

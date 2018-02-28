@@ -1,17 +1,16 @@
 
 $(document).ready(function() {
- 
+  
   bindClickHandlers()
   userClickHandlers()
 
 });
 
 const bindClickHandlers = () => {
-  
+  let admin = $('#admin').text();
   // Hijack restaurants button to send ajax request
   $('#list_restaurants').on('click', function(event) {
     event.preventDefault();
-    const admin = $('#admin').text();
     
     history.pushState(null, null, "/restaurants")
     
@@ -23,7 +22,7 @@ const bindClickHandlers = () => {
       
       //loop over the restaurants loaded by get ajax request
       restaurants.forEach( function (restaurant) {
-    
+       
         //create a new restaurant instance from constructor.
         let newRestaurantInstance = new Restaurant(restaurant)
         
@@ -34,7 +33,7 @@ const bindClickHandlers = () => {
         $('#restaurant-container').append(restaurantHtml)
         
         if(!restaurant.reviews.length !== 0){
-          $("#restaurant-container").append(newRestaurantInstance.writeReview())
+          $("#restaurant-container").append(newRestaurantInstance.writeReview(admin))
         }
       
       })//forEach
@@ -59,7 +58,7 @@ const bindClickHandlers = () => {
       let newRestaurant = new Restaurant(restaurant)
       
       //add fromating by calling prototype formatRestaurant
-      let newRestaurantFormat = newRestaurant.formatRestaurantShow()
+      let newRestaurantFormat = newRestaurant.formatRestaurantShow(admin)
       
       //append formatted restaurants to restaurant-container div
       $('#restaurant-container').append(newRestaurantFormat)
@@ -73,19 +72,20 @@ const bindClickHandlers = () => {
   })//onclick Show Page
   
   $(document).on("click", '.next_restaurant', function(){
+    let isAdmin = $('#admin').text();
     $('#restaurant-container').html("")
     let id = this.dataset.id
     $.get(`/restaurants/${id}/next`).done(restaurant => {
       let buildRestaurant = new Restaurant(restaurant)
-      let restaurantHtml = buildRestaurant.formatRestaurantShow()
+      let restaurantHtml = buildRestaurant.formatRestaurantShow(isAdmin)
       $('#restaurant-container').append(restaurantHtml)
       $('#restaurant-container').append(buildRestaurant.formatReviews())
-      
     })
   })//next_restaurant button
   
   // Hijack new-reviews form
   $("#new_review").on("submit", function(event) {
+    
     event.preventDefault();
     //send ajax post request to create action of reviewsController
     $.ajax({
@@ -124,13 +124,15 @@ Restaurant.prototype.formatRestaurant = function(admin) {
 
       <a id="learn-more" data-id="${this.id}" href="/restaurants/${this.id}">Learn More</a>
       ${admin === 'true' ? '' : `<a id="write-review" data-id="${this.id}" href="/restaurants/${this.id}">Write a Review</a>`}
-      ${admin === 'true' ? `<a id="write-review" data-id="${this.id}" href="/restaurants/${this.id}/edit">Edit Restaurant</a>` : ''}<br><br>
+      ${admin === 'true' ? `<a href="/restaurants/${this.id}/edit">Edit Restaurant</a>` : ''}
+      ${admin === 'true' ? `<a href="/restaurants/${this.id}" data-method="delete">Delete</a>` : ''}
     </div>
   `
   return restaurantHtml
 } // prototype
 
 Restaurant.prototype.formatRestaurantShow = function(admin) {
+  
   let restaurantHtml = `
     <div class="rest_div">
       <h2>${this.name}</h2>
@@ -145,7 +147,7 @@ Restaurant.prototype.formatRestaurantShow = function(admin) {
   return restaurantHtml
 } // prototype
 
-Restaurant.prototype.writeReview = function() {
+Restaurant.prototype.writeReview = function(admin) {
   let review = this.reviews[this.reviews.length - 1]
  
   if(review) {
@@ -158,6 +160,7 @@ Restaurant.prototype.writeReview = function() {
         <h4><b>Cleanliness Rating: ${review.cleanliness_rating}</b></h4>
         <h4><b>Discription: ${review.description}</b></h4>
         <h4>Reviewer: ${review.fullname} </h4>
+        ${admin === 'true' ? '' : `<a href="/reviews/${review.id}/edit">Edit Review</a>`}<br><br>
       </div>
     `
     return reviewHtml

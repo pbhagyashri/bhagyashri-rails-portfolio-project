@@ -52,7 +52,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @review = Review.new
-    
+    @is_admin = is_admin?.to_s
     respond_to do |f|
       f.json {render json: @restaurant}
       f.html
@@ -76,7 +76,7 @@ class RestaurantsController < ApplicationController
   end
 
   def destroy
-    binding.pry
+  
     if is_admin? && restuarant_owner(@restaurant)
       @restaurant.destroy
       redirect_to root_path
