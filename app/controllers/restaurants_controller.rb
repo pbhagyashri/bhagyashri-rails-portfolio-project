@@ -39,6 +39,7 @@ class RestaurantsController < ApplicationController
       if !!@restaurant
         flash[:message] = "Sorry Restaurant already exists"
       else
+        
         @restaurant = Restaurant.create(restaurant_params)
         add_date_to_review(@restaurant)
         @restaurant.save
@@ -89,7 +90,7 @@ class RestaurantsController < ApplicationController
   protected
 
   def restaurant_params
-    params.require(:restaurant).permit(:name, :location, :cuisine, :reviews_attributes => [:taste_rating, :health_rating, :cleanliness_rating, :description, :date, :status, :user_id, :restaurant_id])
+    params.require(:restaurant).permit(:name, :location, :cuisine, :reviews_attributes => [:taste_rating, :health_rating, :cleanliness_rating, :description, :date, :status, :user_id, :restaurant_id, :fullname])
   end
 
   def set_restaurant

@@ -6,6 +6,7 @@ class ReviewsController < ApplicationController
   include ReviewHelper
 
   def create
+    binding.pry
     @restaurant = Restaurant.find_by(id: params[:review][:restaurant_id])
     @review = @restaurant.reviews.build(review_params)
     @review.date = Date.today
@@ -38,7 +39,7 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:taste_rating, :health_rating, :cleanliness_rating, :description, :date, :status, :restaurant_id, :user_id)
+    params.require(:review).permit(:taste_rating, :health_rating, :cleanliness_rating, :description, :date, :status, :restaurant_id, :user_id, :fullname)
   end
 
   def set_review

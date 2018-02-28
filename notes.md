@@ -59,7 +59,7 @@ rails generate migration add_status_to_restaurants status:boolean --no-test-fram
 rails g model Restaurant name:string rating:integer location:string cuisine:string --no-test-framework
 
 rails g model Review taste_rating:integer health_rating:integer cleanliness_rating:integer description:text date:date restaurant_id:integer user_id:integer --no-test-framework
-
+rails generate migration add_fullname_to_reviews fullname:string --no-test-framework
 ____________________________________________________________________________________________________
 
 Project Requirements -

@@ -18,6 +18,11 @@
     <%= r.label :description %>
     <%= r.text_area :description, size: "20x3" %>
   </p>
+  
+  <p>
+    <%= r.label :fullname %>
+    <%= r.text_field :fullname, size: "20x3" %>
+  </p>
 
   <%= r.hidden_field :user_id, :value => current_user.id %>
   <%= r.hidden_field :restaurant_id, :value => @restaurant.id %>
