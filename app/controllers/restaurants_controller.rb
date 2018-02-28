@@ -76,6 +76,7 @@ class RestaurantsController < ApplicationController
   end
 
   def destroy
+    binding.pry
     if is_admin? && restuarant_owner(@restaurant)
       @restaurant.destroy
       redirect_to root_path

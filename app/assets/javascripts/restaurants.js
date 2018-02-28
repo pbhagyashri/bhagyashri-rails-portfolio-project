@@ -123,7 +123,8 @@ Restaurant.prototype.formatRestaurant = function(admin) {
       <h4><b>cuisine:</b> ${this.cuisine} </h4>
 
       <a id="learn-more" data-id="${this.id}" href="/restaurants/${this.id}">Learn More</a>
-      ${admin === 'true' ? '' : `<a id="write-review" data-id="${this.id}" href="/restaurants/${this.id}">Write a Review</a>`}<br><br>
+      ${admin === 'true' ? '' : `<a id="write-review" data-id="${this.id}" href="/restaurants/${this.id}">Write a Review</a>`}
+      ${admin === 'true' ? `<a id="write-review" data-id="${this.id}" href="/restaurants/${this.id}/edit">Edit Restaurant</a>` : ''}<br><br>
     </div>
   `
   return restaurantHtml
