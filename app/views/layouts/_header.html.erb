@@ -11,7 +11,7 @@
           <li><%= link_to 'Logout', logout_path%></li>
           <li><%= link_to "Your Profile", user_path(current_user), {:id => "user-profile"}%></li>
           <li><a id="list_restaurants">Restaurants</a></li>
-          <% if params[:user_id] && is_admin? %>
+          <% if is_admin? %>
             <li><%= link_to "Add Restaurant", new_user_restaurant_path(current_user)%></li>
           <% end %>
         

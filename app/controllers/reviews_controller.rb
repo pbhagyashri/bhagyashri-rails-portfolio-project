@@ -6,13 +6,14 @@ class ReviewsController < ApplicationController
   include ReviewHelper
 
   def create
-   
-    @restaurant = Restaurant.find_by(id: params[:review][:restaurant_id])
-    @review = @restaurant.reviews.build(review_params)
-    @review.date = Date.today
-    @restaurant.save
-  
-    render json: @review
+    if !is_admin?
+      @restaurant = Restaurant.find_by(id: params[:review][:restaurant_id])
+      @review = @restaurant.reviews.build(review_params)
+      @review.date = Date.today
+      @restaurant.save
+    
+      render json: @review
+    end
   end
 
   def edit

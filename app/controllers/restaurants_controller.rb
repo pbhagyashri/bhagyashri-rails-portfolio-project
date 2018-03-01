@@ -52,7 +52,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @review = Review.new
-    @is_admin = is_admin?.to_s
+
     respond_to do |f|
       f.json {render json: @restaurant}
       f.html

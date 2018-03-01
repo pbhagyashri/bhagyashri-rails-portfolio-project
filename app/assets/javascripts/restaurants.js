@@ -93,8 +93,20 @@ const bindClickHandlers = () => {
       url: this.action,
       data: $(this).serialize(),
       success: function(review){
+        
+        let formSelectBoxes = $("#new_review select")
+        
+        //Empty input fields of the form upon submission
+        $.each(formSelectBoxes, function(i, box) {
+          box.value = ""
+        })
+        $("#new_review #review_description").val("")
+        $("#new_review #review_fullname").val("")
+        
         var newReview = new Review(review);
         $("#restaurant-container").append(newReview.formatReview())
+      
+        
       }//success
     })//ajax
   })//new_review

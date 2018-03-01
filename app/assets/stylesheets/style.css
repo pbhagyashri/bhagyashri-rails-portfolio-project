@@ -4,6 +4,14 @@
 body {
  font-family: 'Lora', serif;
 }
+
+h1 {
+ font-size: 2em;
+}
+
+h3 {
+ font-size: 1.5em;
+}
  
  .field_with_errors {
    border: 1px red solid;
@@ -51,7 +59,7 @@ body {
   border-radius: 15px 50px 30px 5px;
  }
  
-  #reviews_div h3 {
+ #reviews_div h3 {
   color: #f2efe8;
  }
 
