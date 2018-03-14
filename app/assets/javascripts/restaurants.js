@@ -14,8 +14,8 @@ const bindClickHandlers = () => {
     
     history.pushState(null, null, "/restaurants")
     
-    // send a get request to index action in restaurantsController to load all restaurants.
     $.get('/restaurants.json').done((restaurants) => {
+      
       //clear out the contents of restaurant-container div
      
       $("#restaurant-container").html('')
@@ -39,7 +39,7 @@ const bindClickHandlers = () => {
       })//forEach
     });//get
     
-  })//onClick Index Page
+    })//onClick Index Page
   
   /////////Hijack learn-more link Show Page////////////
   
@@ -103,6 +103,7 @@ const bindClickHandlers = () => {
         $("#new_review #review_description").val("")
         $("#new_review #review_fullname").val("")
         
+        //create a new review object
         var newReview = new Review(review);
         $("#restaurant-container").append(newReview.formatReview())
       
@@ -211,7 +212,7 @@ function findOwner(restaurant) {
   })
   return owner
 }
-
+///////////// Review Constructor /////////////
 function Review(review) {
   this.id = review.id
   this.health_rating = review.health_rating

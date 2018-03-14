@@ -39,7 +39,6 @@ class RestaurantsController < ApplicationController
       if !!@restaurant
         flash[:message] = "Sorry Restaurant already exists"
       else
-        
         @restaurant = Restaurant.create(restaurant_params)
         add_date_to_review(@restaurant)
         @restaurant.save
