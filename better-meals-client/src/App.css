@@ -1,42 +1,21 @@
-@import url('https://fonts.googleapis.com/css?family=Lora');
+@import url('https://fonts.googleapis.com/css?family=Lora|Pacifico');
+
 
 body {
  font-family: 'Lora', serif;
 }
 
-h1 {
- font-size: 2em;
-}
-
-h3 {
- font-size: 1.5em;
-}
-
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
+.logo5 {
+  color: #fff;
   padding: 20px;
-  color: white;
+  text-align: center;
+  font-family: 'Pacifico', cursive;
 }
 
-.App-title {
-  font-size: 1.5em;
+.header-div {
+  background-image: linear-gradient(#00000093, #00000093), url("./annie-spratt-44241-unsplash.jpg");  
+  height: 100vh;
+  background-size: cover;
 }
 
-.App-intro {
-  font-size: large;
-}
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
